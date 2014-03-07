@@ -39,7 +39,7 @@ Targets = [[0.0, 0.0], [0.0, 0.0], [0.0, 0.0], [1.0, 1.0], [1.0, 1.0], [1.0, 1.0
  
 class Unit(object):
   "A neural network unit: represented by a circle"
-  def __init__(self, i, layer, x_offset, y_offset, colour = white, activation = 0.0, bias = 0.001):
+  def __init__(self, i, layer, x_offset, y_offset, colour = white, activation = 0.0, bias = 0.001, radius = radius, x_spacing = x_spacing, y_spacing = y_spacing):
     self.i = i
     self.j = layer
     self.colour = white
