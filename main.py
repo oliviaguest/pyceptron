@@ -40,13 +40,14 @@ radius = 30
   
 class Unit(object):
   "A neural network unit: represented by a circle"
-  def __init__(self, i, layer, colour = purple):
+  def __init__(self, i, layer, colour = purple, activation = 0.0):
     self.i = i
     self.j = layer
     self.colour = purple
     self.radius = radius
     self.x = self.i * (x_spacing*self.radius) + offset
     self.y = self.j * (y_spacing*self.radius)  + offset
+    self.activation = activation;
     
   def Draw(self):
     pygame.draw.circle(screen, (self.colour[0], self.colour[1], self.colour[2]), (self.x, self.y), self.radius)
