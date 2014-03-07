@@ -1,18 +1,16 @@
 #! /usr/bin/env python
 from math import pi
-
-
 import random as r
 import copy as cop
 import time
-#from rand import *
 
-#from pylab import *
+
+
+#import pygame
 import pygame
 from pygame.locals import *
 
-
-  
+#initialise pygame
 pygame.init()
 screen = pygame.display.set_mode((569, 569))
 pygame.display.set_caption("Pyceptron")
@@ -40,9 +38,10 @@ for i in range(layers):
   for j in range(Units[i]):
     Layer[i][j] = Unit(i,j)
 
-
+#refresh the screen
 pygame.display.update()
-    
+
+#loop to fall into once the main stuff has been done
 while (1):
   for event in pygame.event.get():
     if event.type == QUIT:
