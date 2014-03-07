@@ -33,10 +33,12 @@ for l in range(layers):
 #preset colours
 purple = [255, 20, 255]
 black = [0, 0 , 0]
-offset = int(width/10.0)
+
 x_spacing = 8
 y_spacing = 8
 radius = 30
+x_offset = int((width - ((layers-1) * x_spacing * radius)) / 2.0)
+y_offset = int((height - ((max(Units)-1) * y_spacing * radius)) / 2.0)
   
 class Unit(object):
   "A neural network unit: represented by a circle"
@@ -45,8 +47,8 @@ class Unit(object):
     self.j = layer
     self.colour = purple
     self.radius = radius
-    self.x = self.i * (x_spacing*self.radius) + offset
-    self.y = self.j * (y_spacing*self.radius)  + offset
+    self.x = self.i * (x_spacing*self.radius) + x_offset
+    self.y = self.j * (y_spacing*self.radius)  + y_offset
     self.activation = activation;
     
   def Draw(self):
