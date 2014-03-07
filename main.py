@@ -90,9 +90,8 @@ class Network(object):
     #self.blah blah
     None
     
-
+#below this line are things that will be run - above it are just declarations and definitions of classes, etc.
 N = Network()
-#N.Draw();
       
       
 #refresh the screen
