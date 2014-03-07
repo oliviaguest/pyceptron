@@ -23,21 +23,25 @@ screen.blit(background, (0, 0))
 Units = [3, 2]
 layers = 2
 Layer = [None] * layers
-for i in range(layers):
-  Layer[i] = [None] * Units[i]
+Weights = [None] * layers
+for l in range(layers):
+  Layer[l] = [None] * Units[l]
+  if l > 0:
+    Weights[l] = [None] * Units[l-1] * Units[l]
 
 #preset colours
 purple = [255, 20, 255]
+black = [0, 0 , 0]
 offset = int(width/10.0)
 x_spacing = 8
 y_spacing = 8
 radius = 30
   
 class Unit(object):
-  "A neural network unit: represented as a circle graphically, and as an object in Python"
-  def __init__(self, i, j):
+  "A neural network unit: represented by a circle"
+  def __init__(self, i, layer, colour = purple):
     self.i = i
-    self.j = j
+    self.j = layer
     self.colour = purple
     self.radius = radius
     self.x = self.i * (x_spacing*self.radius) + offset
@@ -46,11 +50,31 @@ class Unit(object):
   def Draw(self):
     pygame.draw.circle(screen, (self.colour[0], self.colour[1], self.colour[2]), (self.x, self.y), self.radius)
 
+class Weight(object):
+  "A neural network connection weight: reprsented by a line"
+  def __init__(self, unit_from, unit_to, strength = 0, colour = black):
+    self.unit_from = unit_from
+    self.unit_to =  unit_to
+    self.colour = colour
+    self.strength = strength
+
+  def Draw(self):
+    pygame.draw.line(screen, self.colour, (self.unit_from.x, self.unit_from.y), (self.unit_to.x, self.unit_to.y), 1)
+    
 #initialisation of network
-for i in range(layers):
-  for j in range(Units[i]):
-    Layer[i][j] = Unit(i,j)
-    Layer[i][j].Draw()
+for l in range(layers):
+  for unit_on_this_layer in range(Units[l]):
+    Layer[l][unit_on_this_layer] = Unit(l,unit_on_this_layer)
+    Layer[l][unit_on_this_layer].Draw()
+
+    if l > 0:
+      for unit_on_prev_layer in range(Units[l-1]):
+	Weights[l][unit_on_this_layer] = Weight(Layer[l-1][unit_on_prev_layer], Layer[l][unit_on_this_layer])
+	Weights[l][unit_on_this_layer].Draw()
+      
+      
+
+
 
 #refresh the screen
 pygame.display.update()
