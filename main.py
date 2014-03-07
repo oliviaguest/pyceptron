@@ -76,10 +76,6 @@ for l in range(layers):
 	Weights[l][unit_on_this_layer] = Weight(Layer[l-1][unit_on_prev_layer], Layer[l][unit_on_this_layer])
 	Weights[l][unit_on_this_layer].Draw()
       
-      
-
-
-
 #refresh the screen
 pygame.display.update()
 
