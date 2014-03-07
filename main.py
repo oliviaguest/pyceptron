@@ -31,16 +31,15 @@ y_spacing = 8
 radius = 30
 
 Units = [3, 2]
-Patterns = [[0.0, 1.0, 0.0], [1.0, 0.0, 1.0]]
-Targets = [[0.0, 0.0], [1.0, 1.0]]
-x_offset = int((width - ((len(Units)-1) * x_spacing * radius)) / 2.0)
-y_offset = int((height - ((max(Units)-1) * y_spacing * radius)) / 2.0)
+Patterns = [[0.0, 1.0, 0.0], [1.0, 0.0, 0.0], [0.0, 0.0, 1.0], [1.0, 0.0, 1.0], [0.0, 1.0, 1.0], [1.0, 1.0, 0.0]]
+Targets = [[0.0, 0.0], [0.0, 0.0], [0.0, 0.0], [1.0, 1.0], [1.0, 1.0], [1.0, 1.0]]
+
 
 
  
 class Unit(object):
   "A neural network unit: represented by a circle"
-  def __init__(self, i, layer, colour = white, activation = 0.0, bias = 0.001):
+  def __init__(self, i, layer, x_offset, y_offset, colour = white, activation = 0.0, bias = 0.001):
     self.i = i
     self.j = layer
     self.colour = white
@@ -103,7 +102,7 @@ class Weight(object):
 
   def Update(self, target, learning_rate):
     self.strength += learning_rate * (target - self.unit_to.activation)
-    print self.strength  
+    print"Output error:", target - self.unit_to.activation
     self.Draw()
     
 
@@ -126,11 +125,14 @@ class Network(object):
 	for unit_on_prev_layer in range(self.units[l-1]):
 	  self.weights[l][unit_on_prev_layer] =  [None] * self.units[l]
 
+    x_offset = int((width - (self.layers - 1) * x_spacing * radius) / 2.0)
+	  
     #initialisation of network
     for l in range(self.layers):
       for unit_on_this_layer in range(self.units[l]):
 	#cycle through the units to actually create the units for the layer we are on
-	self.layer[l][unit_on_this_layer] = Unit(l,unit_on_this_layer)
+	y_offset = int((height - ((self.units[l]-1) * y_spacing * radius)) / 2.0)
+	self.layer[l][unit_on_this_layer] = Unit(l,unit_on_this_layer, x_offset, y_offset)
 	self.layer[l][unit_on_this_layer].Draw()
 
 	if l > 0:
@@ -187,7 +189,7 @@ class Network(object):
 
 	pygame.display.update()
 
-	time.sleep(1)
+	time.sleep(0.5)
 
 
 
