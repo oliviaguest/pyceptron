@@ -21,7 +21,7 @@ screen.blit(background, (0, 0))
 
 #create list to hold units in a neural network layer as another to keep the weights
 Units = [3, 2]
-layers = 2
+layers = len(Units)
 Layer = [None] * layers
 Weights = [None] * layers
 for l in range(layers):
