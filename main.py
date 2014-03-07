@@ -24,53 +24,107 @@ screen.blit(background, (0, 0))
 #preset colours
 purple = [255, 20, 255]
 black = [0, 0 , 0]
+white = [255, 255 , 255]
 
 x_spacing = 8
 y_spacing = 8
 radius = 30
 
 Units = [3, 2]
+Patterns = [[0.0, 1.0, 0.0], [1.0, 0.0, 1.0]]
+Targets = [[0.0, 0.0], [1.0, 1.0]]
 x_offset = int((width - ((len(Units)-1) * x_spacing * radius)) / 2.0)
 y_offset = int((height - ((max(Units)-1) * y_spacing * radius)) / 2.0)
-  
+
+
+ 
 class Unit(object):
   "A neural network unit: represented by a circle"
-  def __init__(self, i, layer, colour = purple, activation = 0.0):
+  def __init__(self, i, layer, colour = white, activation = 0.0, bias = 0.001):
     self.i = i
     self.j = layer
-    self.colour = purple
+    self.colour = white
     self.radius = radius
     self.x = self.i * (x_spacing*self.radius) + x_offset
     self.y = self.j * (y_spacing*self.radius)  + y_offset
     self.activation = activation
+    self.in_weights = 0.0
+    self.in_activations = 0.0
+    self.bias = bias     
+
     
   def Draw(self):
     pygame.draw.circle(screen, (self.colour[0], self.colour[1], self.colour[2]), (self.x, self.y), self.radius)
 
+
+  def Clamp(self, value):
+    self.activation =  value
+    if self.activation == 1:
+      self.colour = purple
+    else:
+      self.colour = white
+    self.Draw()
+
+  def Update(self):
+    #print self.i
+    #print self.j
+    #print self.activation
+    #print self.in_activations
+    self.activation = self.in_activations - self.bias
+    if self.activation  > 0:
+      self.activation = 1
+      self.colour = purple
+    else:
+      self.activation = 0
+      self.colour = white
+    self.Draw()
+    self.in_activations = 0
+    #print self.activation
+    
+       
+
 class Weight(object):
   "A neural network connection weight: reprsented by a line"
-  def __init__(self, unit_from, unit_to, colour = black, strength = 0.0):
+  def __init__(self, unit_from, unit_to, colour = black, strength = 0.01):
     self.unit_from = unit_from
     self.unit_to =  unit_to
     self.colour = colour
     self.strength = strength
 
   def Draw(self):
-    pygame.draw.line(screen, self.colour, (self.unit_from.x, self.unit_from.y), (self.unit_to.x, self.unit_to.y), 1)
+    pygame.draw.line(screen, self.colour, (self.unit_from.x, self.unit_from.y), (self.unit_to.x, self.unit_to.y), int(self.strength * 100))
+
+  def Propagate(self):
+    "Send activations from self.unit_from to self.unit_to"
+    self.unit_to.in_activations += self.unit_from.activation * self.strength
+    #print self.unit_to.i
+    #print self.unit_to.j
+    #print self.unit_to.in_activations
+
+  def Update(self, target, learning_rate):
+    self.strength += learning_rate * (target - self.unit_to.activation)
+    print self.strength  
+    self.Draw()
+    
 
 class Network(object):
   "The network itself!"
-  def __init__(self, units = Units):
+  def __init__(self, units = Units, patterns = Patterns, targets = Targets):
     #create list to hold units in a neural network layer as another to keep the weights
     self.units = units
     self.layers =  len(self.units)
     self.layer = [None] * self.layers
     self.weights = [None] * self.layers
+    self.patterns = patterns
+    self.targets = targets
+    self.learning_rate = 0.001
     for l in range(self.layers):
       self.layer[l] = [None] * self.units[l]
       if l > 0:
 	#we want weights to only exist between two layers, so the 0th layer on its own cannot have any connections
-	self.weights[l] = [None] * self.units[l-1] * self.units[l]
+	self.weights[l] = [None] * self.units[l-1]
+	for unit_on_prev_layer in range(self.units[l-1]):
+	  self.weights[l][unit_on_prev_layer] =  [None] * self.units[l]
 
     #initialisation of network
     for l in range(self.layers):
@@ -83,15 +137,65 @@ class Network(object):
 	  #we want weights to only exist between two layers, so the 0th layer on its own cannot have any connections
 	  for unit_on_prev_layer in range(self.units[l-1]):
 	    #cycle through the units of the previous layer so we can connect them to their counterparts on this layer
-	    self.weights[l][unit_on_this_layer] = Weight(self.layer[l-1][unit_on_prev_layer], self.layer[l][unit_on_this_layer])
-	    self.weights[l][unit_on_this_layer].Draw()
+	    self.weights[l][unit_on_prev_layer][unit_on_this_layer] = Weight(self.layer[l-1][unit_on_prev_layer], self.layer[l][unit_on_this_layer])
+	    self.weights[l][unit_on_prev_layer][unit_on_this_layer].Draw()
 
-  def Learn(self):
-    #self.blah blah
-    None
-    
+  #def Draw(self, layers = -1):
+    #if layers == -1:
+     #layers = range(self.layers)
+    #elif type(layers) == int:
+      #layers = [layers]
+      
+    #for l in layers:
+      #for unit_on_this_layer in range(self.units[l]):
+	#self.layer[l][unit_on_this_layer].Draw()
+      
+
+  def Train(self):
+    for x in range(1000):
+      #clamp the input layer to a pattern p
+      for p in range(len(self.patterns)):
+
+	
+	pygame.display.update()
+	for event in pygame.event.get():
+	  if event.type == QUIT:
+	    quit()
+
+
+	for unit_on_this_layer in range(self.units[0]):
+	  self.layer[0][unit_on_this_layer].Clamp(self.patterns[p][unit_on_this_layer])
+
+
+	for unit_on_this_layer in range(self.units[1]):
+	  for unit_on_prev_layer in range(self.units[0]):
+	    self.weights[1][unit_on_prev_layer][unit_on_this_layer].Propagate()
+	    #self.weights[1][unit_on_prev_layer][unit_on_this_layer].strength += 1
+	    #print self.weights[1][unit_on_prev_layer][unit_on_this_layer].strength
+	    #self.weights[1][unit_on_prev_layer][unit_on_this_layer].Update(self.target[p][unit_on_this_layer])
+          self.layer[1][unit_on_this_layer].Update()
+
+	#for unit_on_this_layer in range(self.units[1]):
+	  
+	for unit_on_this_layer in range(self.units[1]): 
+	  for unit_on_prev_layer in range(self.units[0]):
+	    #self.weights[1][unit_on_prev_layer][unit_on_this_layer].Propagate()
+	    #self.weights[1][unit_on_prev_layer][unit_on_this_layer].strength += 1
+	    #print self.weights[1][unit_on_prev_layer][unit_on_this_layer].strength
+	    self.weights[1][unit_on_prev_layer][unit_on_this_layer].Update(self.targets[p][unit_on_this_layer], self.learning_rate)
+
+
+	pygame.display.update()
+
+	time.sleep(1)
+
+
+
+	
 #below this line are things that will be run - above it are just declarations and definitions of classes, etc.
 N = Network()
+
+N.Train()
       
       
 #refresh the screen
