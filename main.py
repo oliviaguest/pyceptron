@@ -19,7 +19,7 @@ background = background.convert()
 background.fill((200, 200, 200))
 screen.blit(background, (0, 0))
 
-#create list to hold units in a neural network layer
+#create list to hold units in a neural network layer as another to keep the weights
 Units = [3, 2]
 layers = 2
 Layer = [None] * layers
@@ -27,6 +27,7 @@ Weights = [None] * layers
 for l in range(layers):
   Layer[l] = [None] * Units[l]
   if l > 0:
+    #we want weights to only exist between two layers, so the 0th layer on its own cannot have any connections
     Weights[l] = [None] * Units[l-1] * Units[l]
 
 #preset colours
@@ -64,11 +65,14 @@ class Weight(object):
 #initialisation of network
 for l in range(layers):
   for unit_on_this_layer in range(Units[l]):
+    #cycle through the units to actually create the units for the layer we are on
     Layer[l][unit_on_this_layer] = Unit(l,unit_on_this_layer)
     Layer[l][unit_on_this_layer].Draw()
 
     if l > 0:
+      #we want weights to only exist between two layers, so the 0th layer on its own cannot have any connections
       for unit_on_prev_layer in range(Units[l-1]):
+	#cycle through the units of the previous layer so we can connect them to their counterparts on this layer
 	Weights[l][unit_on_this_layer] = Weight(Layer[l-1][unit_on_prev_layer], Layer[l][unit_on_this_layer])
 	Weights[l][unit_on_this_layer].Draw()
       
