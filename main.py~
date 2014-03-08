@@ -51,8 +51,6 @@ class Unit(object):
     self.radius = radius
     self.x = self.i * (x_spacing+self.radius) + x_offset
     self.y = self.j * (y_spacing+self.radius)  + y_offset
-    self.x_spacing = x_spacing
-    self.y_spacing = y_spacing
     self.activation = activation
     self.in_weights = 0.0
     self.in_activations = 0.0

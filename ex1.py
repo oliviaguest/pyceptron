@@ -44,15 +44,13 @@ Targets = [[0.0, 0.0], [0.0, 0.0], [0.0, 0.0], [1.0, 1.0], [1.0, 1.0], [1.0, 1.0
  
 class Unit(object):
   "A neural network unit: represented by a circle"
-  def __init__(self, i, layer, x_offset, y_offset, colour = [255, 255 , 255], activation = 0.0, bias = 0.001, radius = radius, x_spacing = x_spacing, y_spacing = y_spacing):
+  def __init__(self, i, layer, x_offset, y_offset, colour = white, activation = 0.0, bias = 0.001, radius = radius, x_spacing = x_spacing, y_spacing = y_spacing):
     self.i = i
     self.j = layer
-    self.colour = colour
+    self.colour = white
     self.radius = radius
     self.x = self.i * (x_spacing+self.radius) + x_offset
     self.y = self.j * (y_spacing+self.radius)  + y_offset
-    self.x_spacing = x_spacing
-    self.y_spacing = y_spacing
     self.activation = activation
     self.in_weights = 0.0
     self.in_activations = 0.0
@@ -63,11 +61,11 @@ class Unit(object):
     pygame.draw.circle(screen, (self.colour[0], self.colour[1], self.colour[2]), (self.x, self.y), self.radius)
 
   def Colour(self):
-    #if self.activation == 1:
-      #self.colour = purple
-    #else:
-      #self.colour = white
-    self.colour[1] = 255*self.activation
+    if self.activation == 1:
+      self.colour = magenta
+    else:
+      self.colour = white
+    #self.colour[1] = 255*self.activation
 
   def Clamp(self, value):
     self.activation =  value
