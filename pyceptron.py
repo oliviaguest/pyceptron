@@ -1,4 +1,3 @@
-#! /usr/bin/env python
 from math import pi
 import random as r
 import copy as cop
@@ -101,9 +100,6 @@ class Weight(object):
   def Propagate(self):
     "Send activations from self.unit_from to self.unit_to"
     self.unit_to.in_activations += self.unit_from.activation * self.strength
-    #print self.unit_to.i
-    #print self.unit_to.j
-    #print self.unit_to.in_activations
 
   def Update(self, target, learning_rate):
     self.strength += learning_rate * (target - self.unit_to.activation)
@@ -152,16 +148,6 @@ class Network(object):
 	    self.weights[l][unit_on_prev_layer][unit_on_this_layer] = Weight(self.layer[l-1][unit_on_prev_layer], self.layer[l][unit_on_this_layer])
 	    self.weights[l][unit_on_prev_layer][unit_on_this_layer].Draw()
 
-  #def Draw(self, layers = -1):
-    #if layers == -1:
-     #layers = range(self.layers)
-    #elif type(layers) == int:
-      #layers = [layers]
-      
-    #for l in layers:
-      #for unit_on_this_layer in range(self.units[l]):
-	#self.layer[l][unit_on_this_layer].Draw()
-      
 
   def Train(self):
     for x in range(1000):
@@ -169,40 +155,22 @@ class Network(object):
       for p in range(len(self.patterns)):
         screen.blit(background, (0, 0))
 
-	
-	#pygame.display.update()
 	for event in pygame.event.get():
 	  if event.type == QUIT:
 	    quit()
 
-
 	for unit_on_this_layer in range(self.units[0]):
 	  self.layer[0][unit_on_this_layer].Clamp(self.patterns[p][unit_on_this_layer])
-
-	#pygame.display.update()
 
 	for unit_on_this_layer in range(self.units[1]):
 	  for unit_on_prev_layer in range(self.units[0]):
 	    self.weights[1][unit_on_prev_layer][unit_on_this_layer].Propagate()
-	    #self.weights[1][unit_on_prev_layer][unit_on_this_layer].strength += 1
-	    #print self.weights[1][unit_on_prev_layer][unit_on_this_layer].strength
-	    #self.weights[1][unit_on_prev_layer][unit_on_this_layer].Update(self.target[p][unit_on_this_layer])
           self.layer[1][unit_on_this_layer].Update()
-	#pygame.display.update()
-
-	#for unit_on_this_layer in range(self.units[1]):
 	  
 	for unit_on_this_layer in range(self.units[1]): 
 	  for unit_on_prev_layer in range(self.units[0]):
-	    #self.weights[1][unit_on_prev_layer][unit_on_this_layer].Propagate()
-	    #self.weights[1][unit_on_prev_layer][unit_on_this_layer].strength += 1
-	    #print self.weights[1][unit_on_prev_layer][unit_on_this_layer].strength
 	    self.weights[1][unit_on_prev_layer][unit_on_this_layer].Update(self.targets[p][unit_on_this_layer], self.learning_rate)
-
-	#for unit_on_this_layer in range(self.units[1]):
-          #self.layer[1][unit_on_this_layer].Draw()
-          
-
+       
 	pygame.display.update()
 
 	time.sleep(0.5)
@@ -211,7 +179,7 @@ Units = [3, 2]
 Patterns = [[0.0, 1.0, 0.0], [1.0, 0.0, 0.0], [0.0, 0.0, 1.0], [1.0, 0.0, 1.0], [0.0, 1.0, 1.0], [1.0, 1.0, 0.0]]
 Targets = [[0.0, 0.0], [0.0, 0.0], [0.0, 0.0], [1.0, 1.0], [1.0, 1.0], [1.0, 1.0]]
 
-def Main:
+def Main():
   #below this line are things that will be run - above it are just declarations and definitions of classes, etc.
   N = Network(Units, Patterns, Targets)
 
@@ -226,6 +194,6 @@ def Main:
     for event in pygame.event.get():
       if event.type == QUIT:
 	quit()
-	
+
 if __name__ == "__main__":
   Main()

@@ -33,14 +33,14 @@ x_spacing = int(radius*2.5)
 y_spacing = int(radius*2.5)
 
 
-Units = [3, 2]
-Patterns = [[0.0, 1.0, 0.0], [1.0, 0.0, 0.0], [0.0, 0.0, 1.0], [1.0, 0.0, 1.0], [0.0, 1.0, 1.0], [1.0, 1.0, 0.0]]
-Targets = [[0.0, 0.0], [0.0, 0.0], [0.0, 0.0], [1.0, 1.0], [1.0, 1.0], [1.0, 1.0]]
+#Units = [3, 2]
+#Patterns = [[0.0, 1.0, 0.0], [1.0, 0.0, 0.0], [0.0, 0.0, 1.0], [1.0, 0.0, 1.0], [0.0, 1.0, 1.0], [1.0, 1.0, 0.0]]
+#Targets = [[0.0, 0.0], [0.0, 0.0], [0.0, 0.0], [1.0, 1.0], [1.0, 1.0], [1.0, 1.0]]
 
 
 	
 #below this line are things that will be run - above it are just declarations and definitions of classes, etc.
-N = pyceptron.Network()
+N = pyceptron.Network(Units, Patterns, Targets)
 
 N.Train()
       

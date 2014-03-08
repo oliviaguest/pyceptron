@@ -30,23 +30,13 @@ black = [0, 0 , 0]
 white = [255, 255 , 255]
 
 
-radius = int(height/10)
-x_spacing = int(radius*2.5)
-y_spacing = int(radius*2.5)
-
-
-Units = [3, 2]
-Patterns = [[0.0, 1.0, 0.0], [1.0, 0.0, 0.0], [0.0, 0.0, 1.0], [1.0, 0.0, 1.0], [0.0, 1.0, 1.0], [1.0, 1.0, 0.0]]
-Targets = [[0.0, 0.0], [0.0, 0.0], [0.0, 0.0], [1.0, 1.0], [1.0, 1.0], [1.0, 1.0]]
-
-
 
  
 class Unit(object):
   "A neural network unit: represented by a circle"
-  def __init__(self, i, layer, x_offset, y_offset, colour = [255, 255 , 255], activation = 0.0, bias = 0.001, radius = radius, x_spacing = x_spacing, y_spacing = y_spacing):
+  def __init__(self, i, j, x_offset, y_offset, colour = [255, 255 , 255], activation = 0.0, bias = 0.001, radius = 60, x_spacing = 150, y_spacing = 150):
     self.i = i
-    self.j = layer
+    self.j = j
     self.colour = colour
     self.radius = radius
     self.x = self.i * (x_spacing+self.radius) + x_offset
@@ -124,7 +114,7 @@ class Weight(object):
 
 class Network(object):
   "The network itself!"
-  def __init__(self, units = Units, patterns = Patterns, targets = Targets, learning_rate = 0.001):
+  def __init__(self, units, patterns, targets, learning_rate = 0.001, height = 600, width = 600):
     #create list to hold units in a neural network layer as another to keep the weights
     self.units = units
     self.layers =  len(self.units)
@@ -141,6 +131,10 @@ class Network(object):
 	for unit_on_prev_layer in range(self.units[l-1]):
 	  self.weights[l][unit_on_prev_layer] =  [None] * self.units[l]
 
+	  
+    radius = int(height/10)
+    x_spacing = int(radius*2.5)
+    y_spacing = int(radius*2.5)
     x_offset = int((width - (self.layers - 1) * (x_spacing + radius)) / 2.0)
 	  
     #initialisation of network
@@ -148,7 +142,7 @@ class Network(object):
       for unit_on_this_layer in range(self.units[l]):
 	#cycle through the units to actually create the units for the layer we are on
 	y_offset = int((height - ((self.units[l]-1) * (y_spacing + radius))) / 2.0)
-	self.layer[l][unit_on_this_layer] = Unit(l,unit_on_this_layer, x_offset, y_offset)
+	self.layer[l][unit_on_this_layer] = Unit(l, unit_on_this_layer, x_offset, y_offset, white, 0.0, 0.001, radius, x_spacing, y_spacing)
 	self.layer[l][unit_on_this_layer].Draw()
 
 	if l > 0:
@@ -213,20 +207,25 @@ class Network(object):
 
 	time.sleep(0.5)
 
+Units = [3, 2]
+Patterns = [[0.0, 1.0, 0.0], [1.0, 0.0, 0.0], [0.0, 0.0, 1.0], [1.0, 0.0, 1.0], [0.0, 1.0, 1.0], [1.0, 1.0, 0.0]]
+Targets = [[0.0, 0.0], [0.0, 0.0], [0.0, 0.0], [1.0, 1.0], [1.0, 1.0], [1.0, 1.0]]
 
+def Main():
+  #below this line are things that will be run - above it are just declarations and definitions of classes, etc.
+  N = Network(Units, Patterns, Targets)
 
+  N.Train()
 	
-#below this line are things that will be run - above it are just declarations and definitions of classes, etc.
-N = Network()
+	
+  #refresh the screen
+  pygame.display.update()
 
-N.Train()
-      
-      
-#refresh the screen
-pygame.display.update()
-
-#loop to fall into once the main stuff has been done
-while (1):
-  for event in pygame.event.get():
-    if event.type == QUIT:
-      quit()
+  #loop to fall into once the main stuff has been done
+  while (1):
+    for event in pygame.event.get():
+      if event.type == QUIT:
+	quit()
+	
+if __name__ == "__main__":
+  Main()
