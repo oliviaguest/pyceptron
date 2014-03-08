@@ -9,6 +9,11 @@ from pygame.locals import *
 import pyceptron
 
 
+#preset colours
+magenta = [255, 0, 255]
+black = [0, 0 , 0]
+white = [255, 255 , 255]
+
 height = 600
 width = 600
 #initialise pygame
@@ -17,15 +22,11 @@ screen = pygame.display.set_mode((width, height))
 pygame.display.set_caption("Pyceptron")
 background = pygame.Surface(screen.get_size())
 background = background.convert()
-background.fill((200, 200, 200))
+background.fill([200, 200, 200])
 screen.blit(background, (0, 0))
 
 
 
-#preset colours
-magenta = [255, 0, 255]
-black = [0, 0 , 0]
-white = [255, 255 , 255]
 
 
 radius = int(height/10)

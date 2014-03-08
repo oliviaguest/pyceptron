@@ -44,6 +44,7 @@ for i in range(10):
   My_unit.colour = white
   My_unit.Draw()    
   pygame.display.update()
+  
   My_unit.colour = black
   My_unit.Draw()    
   pygame.display.update()

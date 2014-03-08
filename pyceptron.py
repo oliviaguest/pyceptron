@@ -18,7 +18,7 @@ screen = pygame.display.set_mode((width, height))
 pygame.display.set_caption("Pyceptron")
 background = pygame.Surface(screen.get_size())
 background = background.convert()
-background.fill((200, 200, 200))
+background.fill([200, 200, 200])
 screen.blit(background, (0, 0))
 
 
@@ -110,7 +110,7 @@ class Weight(object):
 
 class Network(object):
   "The network itself!"
-  def __init__(self, units, patterns, targets, learning_rate = 0.001, height = 600, width = 600):
+  def __init__(self, units, patterns, targets, learning_rate = 0.001, height = 600, width = 600, background = 0):
     #create list to hold units in a neural network layer as another to keep the weights
     self.units = units
     self.layers =  len(self.units)
@@ -119,6 +119,7 @@ class Network(object):
     self.patterns = patterns
     self.targets = targets
     self.learning_rate = learning_rate
+    self.background = background
     for l in range(self.layers):
       self.layer[l] = [None] * self.units[l]
       if l > 0:
@@ -153,7 +154,7 @@ class Network(object):
     for x in range(1000):
       #clamp the input layer to a pattern p
       for p in range(len(self.patterns)):
-        screen.blit(background, (0, 0))
+        screen.blit(self.background, (0, 0))
 
 	for event in pygame.event.get():
 	  if event.type == QUIT:
@@ -181,7 +182,7 @@ Targets = [[0.0, 0.0], [0.0, 0.0], [0.0, 0.0], [1.0, 1.0], [1.0, 1.0], [1.0, 1.0
 
 def Main():
   #below this line are things that will be run - above it are just declarations and definitions of classes, etc.
-  N = Network(Units, Patterns, Targets)
+  N = Network(Units, Patterns, Targets, background = background)
 
   N.Train()
 	
