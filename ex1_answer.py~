@@ -18,7 +18,7 @@ green = [0, 255, 0]
 yellow = [255, 255, 0]
 
 height = 200
-width = 200
+width = 90
 #initialise pygame
 pygame.init()
 screen = pygame.display.set_mode((width, height))
