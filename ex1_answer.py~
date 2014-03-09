@@ -18,7 +18,7 @@ green = [0, 255, 0]
 yellow = [255, 255, 0]
 
 height = 200
-width = 90
+width = 200
 #initialise pygame
 pygame.init()
 screen = pygame.display.set_mode((width, height))
@@ -36,11 +36,8 @@ x_offset = int(width / 2.0)
 y_offset = int(height / 2.0)
 
 #here we are defining our unit
-My_unit = pyceptron.Unit(0, 0, x_offset, y_offset, colour = [109, 201, 222], radius = 40)
+My_unit = pyceptron.Unit(0, 0, x_offset, y_offset, colour = white, radius = 40)
 
-#and here we are asking for it to draw itself on the screen
-My_unit.Draw()    
-      
 #refresh the screen
 pygame.display.update()
 

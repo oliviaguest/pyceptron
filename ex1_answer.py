@@ -36,29 +36,26 @@ x_offset = int(width / 2.0)
 y_offset = int(height / 2.0)
 
 #here we are defining our unit
-My_unit = pyceptron.Unit(0, 0, x_offset, y_offset, colour = [109, 201, 222], radius = 40)
-
-#and here we are asking for it to draw itself on the screen
-My_unit.Draw()    
-      
-#refresh the screen
-pygame.display.update()
+My_unit = pyceptron.Unit(0, 0, x_offset, y_offset, colour = white, radius = 40)
 
 for i in range(10):
   My_unit.colour = white
   My_unit.Draw()    
   pygame.display.update()
   
+  #try commenting this out to see what it does
   for event in pygame.event.get():
     if event.type == QUIT:
       quit()
-    
+  
+  #ditto
   time.sleep(0.5)
 
   My_unit.colour = black
   My_unit.Draw()    
   pygame.display.update()
   
+  #ditto
   for event in pygame.event.get():
     if event.type == QUIT:
       quit()
