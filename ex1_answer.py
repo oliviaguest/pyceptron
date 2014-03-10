@@ -43,7 +43,7 @@ for i in range(10):
   My_unit.Draw()    
   pygame.display.update()
   
-  #try commenting this out to see what it does
+  #try commenting these following three lines to see what they do
   for event in pygame.event.get():
     if event.type == QUIT:
       quit()
