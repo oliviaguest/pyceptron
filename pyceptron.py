@@ -33,13 +33,13 @@ white = [255, 255 , 255]
  
 class Unit(object):
   "A neural network unit: represented by a circle"
-  def __init__(self, i, j, x_offset, y_offset, colour = [255, 255 , 255], activation = 0.0, bias = 0.001, radius = 60, x_spacing = 150, y_spacing = 150):
+  def __init__(self, layer, i, x_offset, y_offset, colour = [255, 255 , 255], activation = 0.0, bias = 0.001, radius = 60, x_spacing = 150, y_spacing = 150):
+    self.layer = layer
     self.i = i
-    self.j = j
     self.colour = colour
     self.radius = radius
-    self.x = self.i * (x_spacing+self.radius) + x_offset
-    self.y = self.j * (y_spacing+self.radius)  + y_offset
+    self.x = self.layer * (x_spacing+self.radius) + x_offset
+    self.y = self.i * (y_spacing+self.radius)  + y_offset
     self.x_spacing = x_spacing
     self.y_spacing = y_spacing
     self.activation = activation
