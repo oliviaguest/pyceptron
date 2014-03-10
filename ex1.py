@@ -40,14 +40,6 @@ My_unit.Draw()
 #refresh the screen
 pygame.display.update()
 
-for i in range(10):
-  My_unit.colour = white
-  My_unit.Draw()    
-  pygame.display.update()
-  My_unit.colour = black
-  My_unit.Draw()    
-  pygame.display.update()
-
 #loop to fall into once the main stuff has been done
 while (1):
   for event in pygame.event.get():
