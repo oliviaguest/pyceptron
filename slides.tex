@@ -1,8 +1,12 @@
-\documentclass[mathserif]{beamer}
+\documentclass{beamer}
+% \usefonttheme{professionalfonts}
+\usefonttheme{professionalfonts}
+
 % \usepackage{eulervm}
 \usepackage{default}
 \usepackage{caption}
 \usepackage{booktabs,mathptmx,siunitx}
+% \usefonttheme{serif}
 \graphicspath{{img/}}
 \captionsetup{font=scriptsize,labelfont=scriptsize}
 \begin{document}
@@ -68,8 +72,8 @@ Nick Sexton \hfill Nicole Cruz De Echeverria Loebell }
 \begin{itemize}
 \item Learn pretty much any input-output data \\ \
  \item Uncover rules on their own about data  \\ \
-\item Generalise what from what they have learnt \\ \
-\item Cope well with noise and damage \\ \
+\item Generalise from what they have learnt \\ \
+\item Cope with noise and damage \\ \
 \end{itemize}
 \end{frame}
 
@@ -130,9 +134,9 @@ Same for output units: \\
      
 But we/programmers are lazy:
 \begin{equation*}
-a_i = \sum_1^N x_j \times w_{ji}
+a_i = f \left( \sum_1^N x_j w_{ji} \right)
 \end{equation*}
-where $a_i$ is the unit whose state we want to calculate, $N$ are the units on the previous layer, and $w_{ji}$ is the weight on the connection between $i$ and $j$.
+where $a_i$ is the unit whose state we want to calculate, $N$ are the units on the previous layer, $w_{ji}$ is the weight on the connection between $i$ and $j$, and $f$ is a function that we will discuss later.
 
 % Which means, to calculate, e.g., $a_1$ multiply all the states in layer before with the incoming weight and then add them up. So in our case all the $x_1~...~x_3$ because $N = 3$.  
 % \end{block}
@@ -162,31 +166,27 @@ where $a_i$ is the unit whose state we want to calculate, $N$ are the units on t
 \end{frame}
 
 \begin{frame}
-\frametitle{Hebbian Learning}
-\framesubtitle{A simple training rule}
-
-\begin{quotation}Cells that fire together, wire together\end{quotation} 
-\hfill Carla Shatz 
-
-\vfill
-
-\begin{quotation}The general idea is an old one, that any two cells or systems of cells that are repeatedly active at the same time will tend to become 'associated', so that activity in one facilitates activity in the other.\end{quotation} 
-\hfill(Hebb 1949, p. 70)
-
-
-
-
-\end{frame}
-
-
-\begin{frame}
-\frametitle{Hebbian Learning}
-\framesubtitle{Cells that fire together, wire together}
+\frametitle{Hebbian learning}
+\framesubtitle{``Cells that fire together, wire together'' --- Carla Shatz }
   \begin{columns}[T]
     \begin{column}{.5\textwidth}
+    \ \\ 
+    Hebb's rule is very simple and very unstable!
+    
+      \ \\
+
+%     Units that are \emph{on} together in the pattern set are made to \emph{be} on together when the network is run:
       \begin{equation*}
-      w_{ij} = \sum^N_i \eta  x_i x_j
+      \Delta w_{ij} = \eta\sum^N_i   x_i a_j
       \end{equation*}
+      
+      \ \\
+      
+      which means each weight, $w_{ij}$ is changed by a small in/decrement (called $\Delta w_{ij}$).
+      
+      \ \\ 
+      
+      This ensures that if either $x_i$ or $a_j$ is on, then the other will also be on.
 
     \end{column}
     \begin{column}{.5\textwidth}
@@ -194,12 +194,19 @@ where $a_i$ is the unit whose state we want to calculate, $N$ are the units on t
 % Your image included here
 \begin{figure}
  \centering
- \includegraphics[width=\linewidth]{./fig/3-layer.pdf}
+ \includegraphics[width=\linewidth]{./fig/3-layer_maths.pdf}
   \caption{Glosser.ca / CC-BY-SA-3.0}
 \end{figure}
 %     \end{block}
     \end{column}
   \end{columns}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{The perceptron}
+\framesubtitle{A simple classifier}
+ 
 \end{frame}
 
 
