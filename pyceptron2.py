@@ -78,10 +78,15 @@ class Unit(object):
     self.in_activations = 0
     #print self.activation
     
-       
+
+class Layer(object):
+   "A neural network layer: a container for weights and units"
+  def __init__(self, n, layer_to, ):
+    self.n = n #how many units in this layer
+    self.layer_to =  layer_to
 
 class Weight(object):
-  "A neural network connection weight: reprsented by a line"
+  "A neural network connection weight: represented by a line"
   def __init__(self, unit_from, unit_to, colour = black, strength = 0.05):
     self.unit_from = unit_from
     self.unit_to =  unit_to
@@ -129,9 +134,9 @@ class Network(object):
 	  self.weights[l][unit_on_prev_layer] =  [None] * self.units[l]
 
 	  
-    radius = int(height/40)
-    x_spacing = int(radius*1.5)
-    y_spacing = int(radius*1.5)
+    radius = int(height/10)
+    x_spacing = int(radius*2.5)
+    y_spacing = int(radius*2.5)
     x_offset = int((width - (self.layers - 1) * (x_spacing + radius)) / 2.0)
 	  
     #initialisation of network
@@ -176,11 +181,9 @@ class Network(object):
 
 	time.sleep(0.5)
 
-Units = [10, 2]
-Patterns = [[0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]]
-Targets = [[0.0, 0.0]]
-#Patterns = [[0.0, 1.0, 0.0], [1.0, 0.0, 0.0], [0.0, 0.0, 1.0], [1.0, 0.0, 1.0], [0.0, 1.0, 1.0], [1.0, 1.0, 0.0]]
-#Targets = [[0.0, 0.0], [0.0, 0.0], [0.0, 0.0], [1.0, 1.0], [1.0, 1.0], [1.0, 1.0]]
+Units = [3, 2]
+Patterns = [[0.0, 1.0, 0.0], [1.0, 0.0, 0.0], [0.0, 0.0, 1.0], [1.0, 0.0, 1.0], [0.0, 1.0, 1.0], [1.0, 1.0, 0.0]]
+Targets = [[0.0, 0.0], [0.0, 0.0], [0.0, 0.0], [1.0, 1.0], [1.0, 1.0], [1.0, 1.0]]
 
 def Main():
   #below this line are things that will be run - above it are just declarations and definitions of classes, etc.
