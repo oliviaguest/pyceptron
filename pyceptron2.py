@@ -28,8 +28,6 @@ magenta = [255, 0, 255]
 black = [0, 0 , 0]
 white = [255, 255 , 255]
 
-
-
  
 class Unit(object):
   "A neural network unit: represented by a circle"
