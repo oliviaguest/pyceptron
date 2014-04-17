@@ -28,8 +28,11 @@ magenta = [255, 0, 255]
 black = [0, 0 , 0]
 white = [255, 255 , 255]
 
+<<<<<<< HEAD
+=======
 
 
+>>>>>>> cd76a75c44ff30ed5690879fd524210d2d76d033
  
 class Unit(object):
   "A neural network unit: represented by a circle"
@@ -78,6 +81,12 @@ class Unit(object):
     self.in_activations = 0
     #print self.activation
     
+<<<<<<< HEAD
+       
+
+class Weight(object):
+  "A neural network connection weight: reprsented by a line"
+=======
 
 class Layer(object):
    "A neural network layer: a container for weights and units"
@@ -87,6 +96,7 @@ class Layer(object):
 
 class Weight(object):
   "A neural network connection weight: represented by a line"
+>>>>>>> cd76a75c44ff30ed5690879fd524210d2d76d033
   def __init__(self, unit_from, unit_to, colour = black, strength = 0.05):
     self.unit_from = unit_from
     self.unit_to =  unit_to
@@ -134,7 +144,11 @@ class Network(object):
 	  self.weights[l][unit_on_prev_layer] =  [None] * self.units[l]
 
 	  
+<<<<<<< HEAD
+    radius = int(height/max(units))
+=======
     radius = int(height/10)
+>>>>>>> cd76a75c44ff30ed5690879fd524210d2d76d033
     x_spacing = int(radius*2.5)
     y_spacing = int(radius*2.5)
     x_offset = int((width - (self.layers - 1) * (x_spacing + radius)) / 2.0)

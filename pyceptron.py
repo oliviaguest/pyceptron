@@ -135,9 +135,15 @@ class Network(object):
 	  self.weights[l][unit_on_prev_layer] =  [None] * self.units[l]
 
 	  
+<<<<<<< HEAD
+    radius = int(height/max(units))
+    x_spacing = int(radius*2.5)
+    y_spacing = int(radius*2.5)
+=======
     radius = int(height/(max(units)*3))
     x_spacing = int(radius*1.5)
     y_spacing = int(radius*1.5)
+>>>>>>> cd76a75c44ff30ed5690879fd524210d2d76d033
     x_offset = int((width - (self.layers - 1) * (x_spacing + radius)) / 2.0)
 	  
     #initialisation of network
