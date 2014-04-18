@@ -2,11 +2,16 @@
 % \usefonttheme{professionalfonts}
 \usefonttheme{professionalfonts}
 
+\usepackage{amsmath}
+\usepackage{cancel}
 %%%%%%%%%%%%%%%%%%%%%%%%% For making hand-outs %%%%%%%%%%%%%%%%%%%%%%%%%%%
 % \documentclass[handout]{beamer}
 % \usepackage{pgfpages}
 % \pgfpagesuselayout{2 on 1}[a4paper,border shrink=5mm]
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\definecolor{inputred}{HTML}{c30e0e}
+\definecolor{hiddenblue}{HTML}{2626c9}
+\definecolor{outputgreen}{HTML}{008000}
 
 
 % \usepackage{eulervm}
@@ -15,7 +20,7 @@
 \usepackage{booktabs,mathptmx,siunitx}
 % \usefonttheme{serif}
 \graphicspath{{img/}}
-\captionsetup{font=scriptsize,labelfont=scriptsize}
+\captionsetup{font=scriptsize, labelfont=scriptsize}
 \begin{document}
 
 
@@ -98,8 +103,8 @@ Nick Sexton \hfill Nicole Cruz De Echeverria Loebell }
     \begin{enumerate}
 %      \begin{block}{Run network}
 \vfill
-\item<1->{Input units are set to a \emph{pattern}} \\ \ \\
-\item<3->{Calculate hidden units' states}\only<5-9>{: \\ \ \\
+\item<1->{\textcolor{inputred}{Input units} are set to a \emph{pattern}} \\ \ \\
+\item<3->{Calculate \textcolor{hiddenblue}{hidden units}' states}\only<5-9>{: \\ \ \\
 \begin{tabular}{r S[tabformat=3.2] r}% syntax for siunitx v2; for v1 use "tabformat"
 $1 \times 0.5~ =$ & $0.5$ &\\
 \only<6->{ $1 \times 0.0 ~=$ & $0.0$ &\\}
@@ -113,7 +118,7 @@ $1 \times 0.5~ =$ & $0.5$ &\\
 }
 
 \ \\ 
-\item<11->{Same for output units}\only<13-18>{: \\
+\item<11->{Same for \textcolor{outputgreen}{output units}}\only<13-18>{: \\
 \ \\
 \begin{tabular}{r S[tabformat=3.2] r}% syntax for siunitx v2; for v1 use "tabformat"
  \only<13-18>{$0.5 \times 0.25~ =$ & $0.125$ &\\}
@@ -149,7 +154,6 @@ $1 \times 0.5~ =$ & $0.5$ &\\
 
 
 
-
 \begin{frame}
 \frametitle{How does an artificial neural network run?}
 \framesubtitle{By using maths, predictably!}
@@ -158,11 +162,23 @@ $1 \times 0.5~ =$ & $0.5$ &\\
      \ \\
      \ \\
      
-But we/programmers are lazy:
-\begin{equation*}
-a_i = f \left( \sum_1^N x_j \times w_{ji} \right)
-\end{equation*}
-where $a_i$ is the unit whose state we want to calculate, $N$ are the units on the previous layer, $w_{ji}$ is the weight on the connection between $i$ and $j$, and $f$ is a function that we will discuss later.
+But we/programmers are lazy\only<2->{:
+\only<2-6>{\\ \ \\ we like to give things general names}
+
+\only<7->{
+    \begin{overprint}
+        \onslide<7-9>
+	\begin{equation*}
+	a_i = \onslide<11->{f\left(} \onslide<9>{ \sum^{\textcolor{white}{N}}}   \onslide<8->{x_j \times w_{ji}}  \onslide<11->{\right)}
+	\end{equation*}
+	\onslide<10->
+	\begin{equation*}
+	a_i = \onslide<11->{f\left(}  \sum_{j=1}^N  x_j \times w_{ji}  \onslide<11->{\right)}
+	\end{equation*}
+    \end{overprint}
+} }
+    
+\only<12->{where $a_i$ is the unit whose state we want to calculate, $N$ is the number of units on the previous layer, $w_{ji}$ is the weight on the connection between $i$ and $j$, and $f$ is a function, commonly the logistic step function.}
 
 % Which means, to calculate, e.g., $a_1$ multiply all the states in layer before with the incoming weight and then add them up. So in our case all the $x_1~...~x_3$ because $N = 3$.  
 % \end{block}
@@ -173,7 +189,15 @@ where $a_i$ is the unit whose state we want to calculate, $N$ are the units on t
 % 	\begin{figure}
 
 
-	\includegraphics[width=\linewidth]{./fig/3-layer_maths.pdf}
+	\includegraphics<1>[width=\linewidth]{./fig/3-layer.pdf}
+	\includegraphics<2>[width=\linewidth]{./fig/3-layer.pdf}
+	\includegraphics<3>[width=\linewidth]{./fig/3-layer_maths_1.pdf}
+	\includegraphics<4>[width=\linewidth]{./fig/3-layer_maths_2.pdf}
+	\includegraphics<5>[width=\linewidth]{./fig/3-layer_maths_3.pdf}
+	\includegraphics<6->[width=\linewidth]{./fig/3-layer_maths.pdf}
+% 	\includegraphics<6>[width=\linewidth]{./fig/3-layer_maths.pdf}
+% 	\includegraphics[width=\linewidth]{./fig/3-layer_maths.pdf}
+% 	\includegraphics[width=\linewidth]{./fig/3-layer_maths.pdf}
 % 	  \caption{Glosser.ca / CC-BY-SA-3.0}
 % 	\end{figure}
 %     \end{block}
@@ -185,11 +209,55 @@ where $a_i$ is the unit whose state we want to calculate, $N$ are the units on t
 \frametitle{How do networks learn?}
 \framesubtitle{Cunning!}
 \begin{itemize}
-\item Many options: Hebbian learning, back-propagation of error, Boltzmann machine learning, self-organising map algorithm, etc. \\ \
+\item<1-> Many options: Hebbian learning, back-propagation of error, Boltzmann machine learning, self-organising map algorithm, etc. \\ \
 
-\item All learning algorithms work by changing the connection weights \\ \
+\item<2-> All learning algorithms work by changing the connection weights \\ \
 
-\item Learning can be divided into \emph{supervised}, \emph{unsupervised}, and \emph{reinforcement} \\ \ \end{itemize}
+\item<3-> Learning can be divided into \emph{supervised}, \emph{unsupervised}, and \emph{reinforcement} \\ \ \end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Hebbian learning}
+\framesubtitle{A very simple learning rule}
+  \begin{columns}[T]
+    \begin{column}{.5\textwidth}
+    \ \\ 
+%     \onslide<1->{
+%     Units that are \emph{on} together in the pattern set are made to \emph{be} on together when the network is run:
+
+     \onslide<1->{\small ``Cells that fire together, wire together'' \\ \
+     --- Carla Shatz }
+      
+%       \begin{overprint}
+        \onslide<2->{
+	\begin{equation*}
+	\onslide<4->{\Delta} w_{ij} = \onslide<3->{\eta \times}   x_{i}   \times a_j
+	\end{equation*}}
+% 	\onslide<3->
+% 	\begin{equation*}
+% 	\onslide<5->{\Delta} w_{ij} = \onslide<4->{\eta} \sum^P_{p=1}    x_{pi}  \times a_j
+% 	\end{equation*}
+%     \end{overprint}
+
+      
+      
+      \ \\
+      
+      \onslide<5->{which means each weight, $w_{ij}$ is changed by a small in/decrement for every pattern}
+
+%        \onslide<6-> {If $x_i$ or $a_j$ is on, then the other will also be on}
+             
+
+    \end{column}
+    \begin{column}{.5\textwidth}
+%     \begin{block}{}
+% Your image included here
+ 
+ \includegraphics<1->[width=\linewidth]{./fig/3-layer_maths.pdf}
+%   \caption{Glosser.ca / CC-BY-SA-3.0}
+%     \end{block}
+    \end{column}
+  \end{columns}
 \end{frame}
 
 \begin{frame}
@@ -198,37 +266,117 @@ where $a_i$ is the unit whose state we want to calculate, $N$ are the units on t
   \begin{columns}[T]
     \begin{column}{.5\textwidth}
     \ \\ 
-    \onslide<3>{Hebb's rule is very simple but \emph{very unstable}!}
-    \onslide<1->{
+    \only<1->{\only<18>{\bfseries} Hebb's rule is simple, but \emph{very unstable}!}
       \ \\
+      \mdseries
 %     Units that are \emph{on} together in the pattern set are made to \emph{be} on together when the network is run:
-      \begin{equation*}
-      \Delta w_{ij} = \eta \sum^N_i  x_i \times a_j
-      \end{equation*}
-      
-      \ \\
-      
-      which means each weight, $w_{ij}$ is changed by a small in/decrement
-      }
-       \onslide<2-> {      \ \\ 
+	\only<2->{\begin{equation*}
+	\Delta w_{ij} = \eta  \times x_i  \times  a_j
+	\end{equation*}}    
+	\ \\	
+	\ \\	
+     \begin{overprint}
+        \only<3>{
+	\begin{equation*}
+	\Delta w_{11} = \eta \times  x_i  \times a_j
+	\end{equation*}}
+	\only<4>{
+	\begin{equation*}
+	\Delta w_{11} = 0.5 \times  x_i  \times a_j
+	\end{equation*}}
+	\only<5>{
+	\begin{equation*}
+	\Delta w_{11} = 0.5 \times  x_1  \times a_j
+	\end{equation*}}
+	\only<6>{
+	\begin{equation*}
+	\Delta w_{11} = 0.5 \times  x_1  \times a_1
+	\end{equation*}}
+	\only<7>{
+	\begin{equation*}
+	\Delta w_{11} = 0.5 \times  1.0  \times a_1
+	\end{equation*}}
+	\only<8>{
+	\begin{equation*}
+	\Delta w_{11} = 0.5 \times  1.0  \times 0.3
+	\end{equation*}}
+	\only<9-17>{
+	\begin{equation*}
+	\Delta w_{11} = 0.15
+	\end{equation*}}
+    \end{overprint}
+    
+    \begin{center}
+     
 
-      If $x_i$ or $a_j$ is on, then the other will also be on}
+        \begin{overprint}
+    	\only<10>{
+%     	\begin{equation*}
+	$\mathbf{new}~w_{11} = \mathbf{old}~ w_{11} + \Delta w_{11}$
+% 	\end{equation*}
+	}
+    	\only<11>{
+%     	\begin{equation*}
+	$\mathbf{new}~w_{11} = 0.0 + \Delta w_{11}$
+% 	\end{equation*}
+	  }
+    	\only<12>{
+%     	\begin{equation*}
+	$\mathbf{new}~w_{11} = 0.0 + 0.15$
+% 	\end{equation*}}
+	}
+	\only<13>{
+%     	\begin{equation*}
+	$\mathbf{new}~w_{11} = 0.15$
+% 	\end{equation*}
+	  }
+	  \only<14>{
+%     	\begin{equation*}
+	$w_{11} = 0.15$
+% 	\end{equation*}
+	  }
+	  \only<15>{
+%     	\begin{equation*}
+	$w_{11} = 0.15$ + something positive
+% 	\end{equation*}
+	  }	\only<16>{
+%     	\begin{equation*}
+	$w_{11} = 0.15$ + something positive + something else positive +
+% 	\end{equation*}
+	  }	\only<17>{
+%     	\begin{equation*}
+	$w_{11} = 0.15$ + something positive + something else positive + another positive value + ...
+% 	\end{equation*}
+	  }
+    \end{overprint}    
+    \end{center}
 
+% 	\begin{equation*}
+% 	\Delta w_{11} = 0.5 \times  x_1  \times a_1
+% 	\end{equation*}   
+% 	
+% 	\begin{equation*}
+% 	\Delta w_{11} = 0.5 \times  1.0  \times a_1
+% 	\end{equation*}  
+% 	
+% 	\begin{equation*}
+% 	\Delta w_{11} = 0.5 \times  1.0  \times 0.3
+% 	\end{equation*}  
+% 	$\Delta w_{11} = x_1 \times  a_1 $
+     
     \end{column}
     \begin{column}{.5\textwidth}
 %     \begin{block}{}
 % Your image included here
 \begin{figure}
  
- \includegraphics[width=\linewidth]{./fig/3-layer_maths.pdf}
+ \includegraphics<1->[width=\linewidth]{./fig/3-layer_maths.pdf}
 %   \caption{Glosser.ca / CC-BY-SA-3.0}
 \end{figure}
 %     \end{block}
     \end{column}
   \end{columns}
 \end{frame}
-
-
 
 
 \begin{frame}
@@ -240,10 +388,10 @@ where $a_i$ is the unit whose state we want to calculate, $N$ are the units on t
     \begin{itemize}
     
  
-     \item Created in 1957 at the Cornell Aeronautical Laboratory by Frank Rosenblatt  \\ \
-\item Linear classifier \\ \
+     \item<2->Created in 1957 at the Cornell Aeronautical Laboratory by Frank Rosenblatt  \\ \
+\item<3->Linear classifier \\ \
 
-\item Simplest form of feedforward network \\ \
+\item<4->Simplest form of feedforward network \\ \
 
 % \item Consists of two layers of units \\ \
 % \item No hidden units \\ \
