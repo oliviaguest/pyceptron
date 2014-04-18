@@ -95,38 +95,51 @@ Nick Sexton \hfill Nicole Cruz De Echeverria Loebell }
 \framesubtitle{By using maths, predictably!}
   \begin{columns}[T]
     \begin{column}{.5\textwidth}
+    \begin{enumerate}
 %      \begin{block}{Run network}
-Input units are set to a \emph{pattern} \\
-\ \\
-Calculate hidden units' states: \\
-\ \\
+\vfill
+\item<1->{Input units are set to a \emph{pattern}} \\ \ \\
+\item<3->{Calculate hidden units' states}\only<5-9>{: \\ \ \\
 \begin{tabular}{r S[tabformat=3.2] r}% syntax for siunitx v2; for v1 use "tabformat"
- $1 \times 0.5 =$ & $0.5$ &\\
- $1 \times 0.0 =$ & $0.0$ &\\
- $0 \times 0.8 =$ & $0.0$ & +\\
- \hline
- & $0.5$ &
+$1 \times 0.5~ =$ & $0.5$ &\\
+\only<6->{ $1 \times 0.0 ~=$ & $0.0$ &\\}
+ \only<7>{$0 \times 0.8 ~=$ & $0.0$ & \\}
+  \only<8->{$0 \times 0.8 ~=$ & $0.0$ & +\\
+\hline
+ & $0.5$ &}
 \end{tabular}
 
-Same for output units: \\
+
+}
+
+\ \\ 
+\item<11->{Same for output units}\only<13-18>{: \\
 \ \\
 \begin{tabular}{r S[tabformat=3.2] r}% syntax for siunitx v2; for v1 use "tabformat"
- $0.5 \times 0.25 =$ & $0.125$ &\\
- $0.3 \times 1.5  =$ & $0.45$ &\\
- $1.6 \times -0.3 =$ & $-0.48$ &\\
- $-0.4 \times 1.1 =$ & $-0.44$ & + \\
+ \only<13-18>{$0.5 \times 0.25~ =$ & $0.125$ &\\}
+\only<14-18>{ $0.3 \times 1.5  ~=$ & $0.45$ &\\}
+\only<15-18>{ $1.6 \times -0.3 ~=$ & $-0.48$ &\\}
+ \only<16-18>{$-0.4 \times 1.1 ~=$ & $-0.44$ &  \\}
+ \only<17-18>{$-0.4 \times 1.1 ~=$ & $-0.44$ & + \\
  \hline
- & $-0.345$ & 
-\end{tabular}
+ & $-0.345$ & }
+\end{tabular}}
+\end{enumerate}
 % \end{block}
     \end{column}
     \begin{column}{.5\textwidth}
 %     \begin{block}{}
 % Your image included here
 % \begin{figure}
-
- \includegraphics[width=\linewidth]{./fig/3-layer_propagate.pdf}
-
+\includegraphics<1>[width=\linewidth]{./fig/3-layer.pdf}
+\includegraphics<2-3>[width=\linewidth]{./fig/3-layer_propagate_1.pdf}
+\includegraphics<4-8>[width=\linewidth]{./fig/3-layer_propagate_2.pdf}
+\includegraphics<9>[width=\linewidth]{./fig/3-layer_propagate_3.pdf}
+\includegraphics<10-11>[width=\linewidth]{./fig/3-layer_propagate_4.pdf}
+\includegraphics<12-17>[width=\linewidth]{./fig/3-layer_propagate_5.pdf}
+\includegraphics<18-19>[width=\linewidth]{./fig/3-layer_propagate_6.pdf}
+% \includegraphics<11->[width=\linewidth]{./fig/3-layer_propagate_5.pdf}
+%  \only<6>{\includegraphics[width=\linewidth]{./fig/3-layer_propagate_4.pdf}}
 %   \caption{Glosser.ca / CC-BY-SA-3.0}
 % \end{figure}
 %     \end{block}
