@@ -12,8 +12,7 @@
 \definecolor{inputred}{HTML}{c30e0e}
 \definecolor{hiddenblue}{HTML}{2626c9}
 \definecolor{outputgreen}{HTML}{008000}
-
-
+\newcommand{\figheight}{0.72\textheight}
 % \usepackage{eulervm}
 \usepackage{default}
 \usepackage{caption}
@@ -30,9 +29,9 @@
 % 
 % ``Getting an education was a bit like a communicable sexual disease. It made you unsuitable for a lot of jobs and then you had the urge to pass it on.''
 % \\ \
-\centering\Huge Welcome to the computational cognitive modelling workshop! 
+\centering\Huge Welcome to the introduction to computational cognitive modelling workshop! 
 \vfill \huge
-\centering\textbf{Part 2: Artificial neural networks} \normalsize
+\centering\textbf{Part 2: Introduction to artificial neural networks} \normalsize
 \vfill
 % \textit{Olivia Guest \hfill  Chris Brand \\  \ Nick Sexton \hfill Nicole Cruz De Echeverria Loebell } 
 % -- \textit{Terry Pratchett}
@@ -45,7 +44,7 @@
 % ``Getting an education was a bit like a communicable sexual disease. It made you unsuitable for a lot of jobs and then you had the urge to pass it on.''
 % \\ \
 \vfill \Huge
-\centering Part 2: \textbf{Artificial neural networks} \large
+\centering Part 2: \textbf{Introduction to artificial neural networks} \large
 \vfill
 \textit{
 Olivia Guest \hfill  Chris Brand 
@@ -59,7 +58,7 @@ Nick Sexton \hfill Nicole Cruz De Echeverria Loebell }
 \frametitle{What is a neural network?}
 \framesubtitle{A mathematical model}
  \begin{columns}[T]
-    \begin{column}{.5\textwidth} 
+    \begin{column}{.45\textwidth} 
      \ \\ 
      \ \\
 \begin{itemize}
@@ -68,11 +67,12 @@ Nick Sexton \hfill Nicole Cruz De Echeverria Loebell }
 \item The network \emph{runs} by passing \emph{activations} from the \emph{input} (to the \emph{hidden}) to the \emph{output} units \\ \
 \end{itemize}
 \end{column}
-\begin{column}{.5\textwidth}
+\begin{column}{.55\textwidth}
 \begin{figure}
- 
- \includegraphics[width=\linewidth]{./fig/3-layer.pdf}
- % 3-layer.pdf: 236x271 pixel, 72dpi, 8.33x9.56 cm, bb=0 0 236 271
+ \begin{flushleft}
+
+ \includegraphics[height = \figheight]{./fig/3-layer.pdf}
+ \end{flushleft}
  \caption{Glosser.ca / CC-BY-SA-3.0}
 \end{figure}
 \end{column}
@@ -99,52 +99,61 @@ Nick Sexton \hfill Nicole Cruz De Echeverria Loebell }
 \frametitle{How does an artificial neural network run?}
 \framesubtitle{By using maths, predictably!}
   \begin{columns}[T]
-    \begin{column}{.5\textwidth}
+    \begin{column}{.45\textwidth}
+    \ \\ \ \\
     \begin{enumerate}
 %      \begin{block}{Run network}
-\vfill
 \item<1->{\textcolor{inputred}{Input units} are set to a \emph{pattern}} \\ \ \\
 \item<3->{Calculate \textcolor{hiddenblue}{hidden units}' states}\only<5-9>{: \\ \ \\
-\begin{tabular}{r S[tabformat=3.2] r}% syntax for siunitx v2; for v1 use "tabformat"
-$1 \times 0.5~ =$ & $0.5$ &\\
-\only<6->{ $1 \times 0.0 ~=$ & $0.0$ &\\}
- \only<7>{$0 \times 0.8 ~=$ & $0.0$ & \\}
-  \only<8->{$0 \times 0.8 ~=$ & $0.0$ & +\\
-\hline
- & $0.5$ &}
+\begin{tabular}{r S[tabformat=1.1] r}% syntax for siunitx v2; for v1 use "tabformat"
+\visible<5->{$1\times0.5~=$&$0.5$&\\}
+\visible<6->{$1\times0.0~=$&$0.0$&\\}
+\visible<7->{$0\times0.8~=$ & $0.0$& \visible<8->{+\\ \hline}}
+\visible<9->{& $0.5$ &}
 \end{tabular}
 
 
 }
 
 \ \\ 
-\item<11->{Same for \textcolor{outputgreen}{output units}}\only<13-18>{: \\
+\item<11->{Same for \textcolor{outputgreen}{output units}}\visible<13-18>{: \\
 \ \\
 \begin{tabular}{r S[tabformat=3.2] r}% syntax for siunitx v2; for v1 use "tabformat"
- \only<13-18>{$0.5 \times 0.25~ =$ & $0.125$ &\\}
-\only<14-18>{ $0.3 \times 1.5  ~=$ & $0.45$ &\\}
-\only<15-18>{ $1.6 \times -0.3 ~=$ & $-0.48$ &\\}
- \only<16-18>{$-0.4 \times 1.1 ~=$ & $-0.44$ &  \\}
- \only<17-18>{$-0.4 \times 1.1 ~=$ & $-0.44$ & + \\
- \hline
- & $-0.345$ & }
+\visible<13->{$0.5 \times 0.25~ =$ & $0.125$ &\\}
+\visible<14->{ $0.3 \times 1.5  ~=$ & $0.45$ &\\}
+\visible<15->{ $1.6 \times -0.3 ~=$ & $-0.48$ &\\}
+\visible<16->{$-0.4 \times 1.1 ~=$ & $-0.44$ &  \visible<17->{+\\ \hline} }
+% \visible<17->{$-0.4 \times 1.1 ~=$ & $-0.44$ & + \\
+\visible<17->{ & $-0.345$ & }
 \end{tabular}}
 \end{enumerate}
 % \end{block}
     \end{column}
-    \begin{column}{.5\textwidth}
+    \begin{column}{.55\textwidth}
 %     \begin{block}{}
 % Your image included here
 % \begin{figure}
-\includegraphics<1>[width=\linewidth]{./fig/3-layer.pdf}
-\includegraphics<2-3>[width=\linewidth]{./fig/3-layer_propagate_1.pdf}
-\includegraphics<4-8>[width=\linewidth]{./fig/3-layer_propagate_2.pdf}
-\includegraphics<9>[width=\linewidth]{./fig/3-layer_propagate_3.pdf}
-\includegraphics<10-11>[width=\linewidth]{./fig/3-layer_propagate_4.pdf}
-\includegraphics<12-17>[width=\linewidth]{./fig/3-layer_propagate_5.pdf}
-\includegraphics<18-19>[width=\linewidth]{./fig/3-layer_propagate_6.pdf}
-% \includegraphics<11->[width=\linewidth]{./fig/3-layer_propagate_5.pdf}
-%  \only<6>{\includegraphics[width=\linewidth]{./fig/3-layer_propagate_4.pdf}}
+
+\begin{figure}
+
+
+\begin{flushleft}
+ 
+\includegraphics<1>[height = \figheight]{./fig/3-layer.pdf}
+\includegraphics<2-3>[height = \figheight]{./fig/3-layer_propagate_1.pdf}
+\includegraphics<4-8>[height = \figheight]{./fig/3-layer_propagate_2.pdf}
+\includegraphics<9>[height = \figheight]{./fig/3-layer_propagate_3.pdf}
+\includegraphics<10-11>[height = \figheight]{./fig/3-layer_propagate_4.pdf}
+\includegraphics<12-17>[height = \figheight]{./fig/3-layer_propagate_5.pdf}
+\includegraphics<18>[height = \figheight]{./fig/3-layer_propagate_6.pdf}
+\includegraphics<19->[height = \figheight]{./fig/3-layer_propagate_7.pdf}
+\vspace{1cm}
+
+\end{flushleft}
+
+\end{figure}
+% \includegraphics<11->[height = \figheight]{./fig/3-layer_propagate_5.pdf}
+%  \only<6>{\includegraphics[height = \figheight]{./fig/3-layer_propagate_4.pdf}}
 %   \caption{Glosser.ca / CC-BY-SA-3.0}
 % \end{figure}
 %     \end{block}
@@ -158,48 +167,224 @@ $1 \times 0.5~ =$ & $0.5$ &\\
 \frametitle{How does an artificial neural network run?}
 \framesubtitle{By using maths, predictably!}
   \begin{columns}[T]
-    \begin{column}{.5\textwidth}
+    \begin{column}{.45\textwidth}
+
+     \begin{itemize}
+\item \only<1>{But programmers are \emph{lazy}!} \only<2->{General names  save time}
+
+%      \ \\   
+     
+     \ \\
+     
+%      \ \\
+% \item We'd rather a computer did all the maths for us
+%      \ \\
+%      \ \\
+%      \ \\
+%           \ \\
+     
+     \item<3-> \textcolor{inputred}{input units:} $x_i$
+          \ \\
+     \ \\
+     
+     \item<4-> \textcolor{hiddenblue}{hidden units:} $a_j$
      \ \\
      \ \\
      
-But we/programmers are lazy\only<2->{:
-\only<2-6>{\\ \ \\ we like to give things general names}
+     \item<5-> \textcolor{outputgreen}{output units:} $y_k$
+     \ \\
+     \ \\
+     \item<6-> connection weights:  $w_{ij}$ 
+          \ \\
+     \ \\
+     \item<7-> subscripts \\ general: ${ijklm...}$ \\ specific: ${12345...}$
 
-\only<7->{
-    \begin{overprint}
-        \onslide<7-9>
-	\begin{equation*}
-	a_i = \onslide<11->{f\left(} \onslide<9>{ \sum^{\textcolor{white}{N}}}   \onslide<8->{x_j \times w_{ji}}  \onslide<11->{\right)}
-	\end{equation*}
-	\onslide<10->
-	\begin{equation*}
-	a_i = \onslide<11->{f\left(}  \sum_{j=1}^N  x_j \times w_{ji}  \onslide<11->{\right)}
-	\end{equation*}
-    \end{overprint}
-} }
+     \end{itemize}
+
+% \only<7->{
+%     \begin{overprint}
+%         \onslide<7-9>
+% 	\begin{equation*}
+% 	a_i = \onslide<11->{f\left(} \onslide<9>{ \sum^{\textcolor{white}{N}}}   \onslide<8->{x_j \times w_{ji}}  \onslide<11->{\right)}
+% 	\end{equation*}
+% 	\onslide<10->
+% 	\begin{equation*}
+% 	a_i = \onslide<11->{f\left(}  \sum_{j=1}^N  x_j \times w_{ji}  \onslide<11->{\right)}
+% 	\end{equation*}
+%     \end{overprint}
+% } 
     
-\only<12->{where $a_i$ is the unit whose state we want to calculate, $N$ is the number of units on the previous layer, $w_{ji}$ is the weight on the connection between $i$ and $j$, and $f$ is a function, commonly the logistic step function.}
+% \only<12->{where $a_i$ is the unit whose state we want to calculate, $N$ is the number of units on the previous layer, $w_{ji}$ is the weight on the connection between $i$ and $j$, and $f$ is a function, commonly the logistic step function.}
 
 % Which means, to calculate, e.g., $a_1$ multiply all the states in layer before with the incoming weight and then add them up. So in our case all the $x_1~...~x_3$ because $N = 3$.  
 % \end{block}
     \end{column}
-    \begin{column}{.5\textwidth}
+    \begin{column}{.55\textwidth}
 %     \begin{block}{}
 % Your image included here
-% 	\begin{figure}
-
-
-	\includegraphics<1>[width=\linewidth]{./fig/3-layer.pdf}
-	\includegraphics<2>[width=\linewidth]{./fig/3-layer.pdf}
-	\includegraphics<3>[width=\linewidth]{./fig/3-layer_maths_1.pdf}
-	\includegraphics<4>[width=\linewidth]{./fig/3-layer_maths_2.pdf}
-	\includegraphics<5>[width=\linewidth]{./fig/3-layer_maths_3.pdf}
-	\includegraphics<6->[width=\linewidth]{./fig/3-layer_maths.pdf}
-% 	\includegraphics<6>[width=\linewidth]{./fig/3-layer_maths.pdf}
-% 	\includegraphics[width=\linewidth]{./fig/3-layer_maths.pdf}
-% 	\includegraphics[width=\linewidth]{./fig/3-layer_maths.pdf}
+	\begin{figure}
+	\begin{flushleft}
+	
+	\includegraphics<1-2>[height = \figheight]{./fig/3-layer.pdf}
+% 	\includegraphics<>[height = \figheight]{./fig/3-layer.pdf}
+% 	\includegraphics<3>[height = \figheight]{./fig/3-layer_maths_1.pdf}
+	\includegraphics<3>[height = \figheight]{./fig/3-layer_maths_1.pdf}
+	\includegraphics<4>[height = \figheight]{./fig/3-layer_maths_2.pdf}
+	\includegraphics<5>[height = \figheight]{./fig/3-layer_maths_3.pdf}
+	\includegraphics<6->[height = \figheight]{./fig/3-layer_maths.pdf}
+% 	\includegraphics[height = \figheight]{./fig/3-layer_maths.pdf}
+% 	\includegraphics[height = \figheight]{./fig/3-layer_maths.pdf}
 % 	  \caption{Glosser.ca / CC-BY-SA-3.0}
-% 	\end{figure}
+	\vspace{1cm}
+	\end{flushleft}
+	\end{figure}
+%     \end{block}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{How does an artificial neural network run?}
+\framesubtitle{By using maths, predictably!}
+  \begin{columns}[T]
+    \begin{column}{.45\textwidth}
+\ \\ 
+\ \\ 
+We use general names to write a general equation:
+
+    \begin{overprint}
+        \only<2>{
+	\begin{equation*}
+	a_i = \textcolor{white}{f\left(        \sum^N_{j=1} x_j \times w_{ji} \right)} 
+	\end{equation*}}
+         \only<3>{
+	\begin{equation*}
+	a_i = \textcolor{white}{f\left( \sum^N_{j=1} \textcolor{black}{ x_j \times w_{ji}  } \right)}
+	\end{equation*}}
+        \only<4>{
+	\begin{equation*}
+	a_i = \textcolor{white}{f\left( \textcolor{black}{ \sum^N_{j=1} x_j \times w_{ji}  } \right)}
+	\end{equation*}}
+	\only<5->{
+	\begin{equation*}
+	a_i = f\left(  \sum_{j=1}^N x_j \times w_{ji} \right)
+	\end{equation*}}
+    \end{overprint}
+    
+\only<7->{where $a_i$ is the unit whose state we want to calculate, $N$ is the number of units on the previous layer, $w_{ji}$ is the weight on the connection between $i$ and $j$, and $f$ is a function that the unit applies.}
+
+% Which means, to calculate, e.g., $a_1$ multiply all the states in layer before with the incoming weight and then add them up. So in our case all the $x_1~...~x_3$ because $N = 3$.  
+% \end{block}
+    \end{column}
+    \begin{column}{.55\textwidth}
+%     \begin{block}{}
+% Your image included here
+	\begin{figure}
+	\begin{flushleft}
+	
+	\includegraphics[height = \figheight]{./fig/3-layer_maths.pdf}
+	\vspace{1cm}
+	\end{flushleft}
+	\end{figure}
+%     \end{block}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+\frametitle{How does an artificial neural network run?}
+\framesubtitle{By using maths, predictably!}
+  \begin{columns}[T]
+    \begin{column}{.45\textwidth}
+\ \\ 
+\ \\ 
+We use this equation by replacing \emph{iterators} $i$ and $j$:
+
+
+
+
+
+	\begin{equation*}
+	a_i = f\left(  \sum_{j=1}^N x_j \times w_{ji} \right)
+	\end{equation*}
+	
+	
+    \begin{overprint}
+	\only<2>{
+	\begin{equation*}
+	a_{\textcolor{hiddenblue}{1}} = f\left(   \sum^N_{j=1} x_j \times w_{j\textcolor{hiddenblue}{1}} \right) 
+	\end{equation*}
+	}	
+	\only<3-6>{
+	\begin{equation*}
+	a_{\textcolor{hiddenblue}{1}} = f\left(   \sum^{\textcolor{inputred}{3}}_{j=1} x_j \times w_{j\textcolor{hiddenblue}{1}} \right) 
+	\end{equation*}
+	
+	}
+	\only<7->{
+	\begin{equation*}
+	a_{\textcolor{hiddenblue}{2}} = f\left(   \sum^{\textcolor{inputred}{3}}_{j=1} x_j \times w_{j\textcolor{hiddenblue}{2}} \right) 
+	\end{equation*}
+	
+	}
+	
+
+    \end{overprint}
+\only<4-6>{
+	\setlength{\tabcolsep}{1pt}
+	\begin{tabular}{c c c}% syntax for siunitx v2; for v1 use "tabformat"
+	\visible<4->{$x_{\textcolor{inputred}{1}} \times w_{\textcolor{inputred}{1}\textcolor{hiddenblue}{1}}$ }&\visible<5->{$+~ x_{\textcolor{inputred}{2}} \times w_{\textcolor{inputred}{2}\textcolor{hiddenblue}{1}}$}& \visible<6>{$+ ~ x_{\textcolor{inputred}{3}} \times w_{\textcolor{inputred}{3}\textcolor{hiddenblue}{1}}$}\\ 
+	% \visible<17->{$-0.4 \times 1.1 ~=$ & $-0.44$ & + \\
+	\end{tabular}
+	}
+	\only<8->{
+	\setlength{\tabcolsep}{1pt}
+	\begin{tabular}{c c c}% syntax for siunitx v2; for v1 use "tabformat"
+	\visible<8->{$x_{\textcolor{inputred}{1}} \times w_{\textcolor{inputred}{1}\textcolor{hiddenblue}{2}}$ }&\visible<9->{$+~ x_{\textcolor{inputred}{2}} \times w_{\textcolor{inputred}{2}\textcolor{hiddenblue}{2}}$}& \visible<10>{$+ ~ x_{\textcolor{inputred}{3}} \times w_{\textcolor{inputred}{3}\textcolor{hiddenblue}{2}}$}\\ 
+	% \visible<17->{$-0.4 \times 1.1 ~=$ & $-0.44$ & + \\
+	\end{tabular}
+	}
+	
+	
+	
+	
+	
+
+%      \begin{overprint}
+%     	\only<4>{
+% 	\begin{equation*}
+% 	x_{\textcolor{inputred}{1}} \times w_{\textcolor{inputred}{1}\textcolor{hiddenblue}{1}} ~ \textcolor{purple}{ + x_{2} \times w_{21} + x_{3} \times w_{31}}
+% 	\end{equation*}
+% 	}	
+%     	\only<5>{
+% 	\begin{equation*}
+% 	x_{\textcolor{inputred}{1}} \times w_{\textcolor{inputred}{1}\textcolor{hiddenblue}{1}} ~+ x_{\textcolor{inputred}{2}} \times w_{\textcolor{inputred}{2}\textcolor{hiddenblue}{1}} \textcolor{purple}{ + x_{3} \times w_{31}}
+% 	\end{equation*}
+% 	}
+% 	\only<6>{
+% 	\begin{equation*}
+% 	x_{\textcolor{inputred}{1}} \times w_{\textcolor{inputred}{1}\textcolor{hiddenblue}{1}} ~ + x_{\textcolor{inputred}{2}} \times w_{\textcolor{inputred}{2}\textcolor{hiddenblue}{1}} + x_{\textcolor{inputred}{3}} \times w_{\textcolor{inputred}{3}\textcolor{hiddenblue}{1}}
+% 	\end{equation*}
+% 	}
+%     \end{overprint}
+    
+% \only<7->{where $a_i$ is the unit whose state we want to calculate, $N$ is the number of units on the previous layer, $w_{ji}$ is the weight on the connection between $i$ and $j$, and $f$ is a function that the unit applies.}
+
+% Which means, to calculate, e.g., $a_1$ multiply all the states in layer before with the incoming weight and then add them up. So in our case all the $x_1~...~x_3$ because $N = 3$.  
+% \end{block}
+    \end{column}
+    \begin{column}{.55\textwidth}
+%     \begin{block}{}
+% Your image included here
+	\begin{figure}
+	\begin{flushleft}
+	
+	\includegraphics[height = \figheight]{./fig/3-layer_maths.pdf}
+	\vspace{1cm}
+	\end{flushleft}
+	\end{figure}
 %     \end{block}
     \end{column}
   \end{columns}
@@ -220,91 +405,99 @@ But we/programmers are lazy\only<2->{:
 \frametitle{Hebbian learning}
 \framesubtitle{A very simple learning rule}
   \begin{columns}[T]
-    \begin{column}{.5\textwidth}
+    \begin{column}{.45\textwidth}
     \ \\ 
 %     \onslide<1->{
 %     Units that are \emph{on} together in the pattern set are made to \emph{be} on together when the network is run:
 
      \onslide<1->{\small ``Cells that fire together, wire together'' \\ \
      --- Carla Shatz }
-      
-%       \begin{overprint}
-        \onslide<2->{
-	\begin{equation*}
-	\onslide<4->{\Delta} w_{ij} = \onslide<3->{\eta \times}   x_{i}   \times a_j
-	\end{equation*}}
-% 	\onslide<3->
-% 	\begin{equation*}
-% 	\onslide<5->{\Delta} w_{ij} = \onslide<4->{\eta} \sum^P_{p=1}    x_{pi}  \times a_j
+      \\ \
+      \\ \
+      \begin{center}
+%       \begin{equation*}
+	\uncover<5->{$\Delta$} \uncover<2->{$w_{i} =$} \uncover<4->{$\eta \times$} \uncover<3->{$\textcolor{inputred}{x_{i}} \times \textcolor{outputgreen}{y_j}$}
 % 	\end{equation*}
-%     \end{overprint}
+     \end{center}
+
+
 
       
       
+      \ \\      
+      
       \ \\
       
-      \onslide<5->{which means each weight, $w_{ij}$ is changed by a small in/decrement for every pattern}
+      \onslide<6->{which means each weight is changed by a small in/decrement for every pattern}
 
 %        \onslide<6-> {If $x_i$ or $a_j$ is on, then the other will also be on}
              
 
     \end{column}
-    \begin{column}{.5\textwidth}
+    \begin{column}{.55\textwidth}
 %     \begin{block}{}
 % Your image included here
- 
- \includegraphics<1->[width=\linewidth]{./fig/3-layer_maths.pdf}
+ \begin{flushleft}
+
+ \includegraphics[height = \figheight]{./fig/perceptron_maths.pdf}
 %   \caption{Glosser.ca / CC-BY-SA-3.0}
 %     \end{block}
+ \vspace{1cm}
+
+\end{flushleft}
     \end{column}
   \end{columns}
 \end{frame}
 
 \begin{frame}
 \frametitle{Hebbian learning}
-\framesubtitle{``Cells that fire together, wire together'' --- Carla Shatz }
+% \framesubtitle{``Cells that fire together, wire together'' --- Carla Shatz }
   \begin{columns}[T]
-    \begin{column}{.5\textwidth}
+    \begin{column}{.45\textwidth}
     \ \\ 
-    \only<1->{\only<18>{\bfseries} Hebb's rule is simple, but \emph{very unstable}!}
+    \onslide<1->{{Hebb's rule is simple, but \emph{very unstable}!}}
       \ \\
       \mdseries
 %     Units that are \emph{on} together in the pattern set are made to \emph{be} on together when the network is run:
 	\only<2->{\begin{equation*}
-	\Delta w_{ij} = \eta  \times x_i  \times  a_j
+	\Delta w_i = \eta  \times x_i  \times  y_j
 	\end{equation*}}    
 	\ \\	
 	\ \\	
-     \begin{overprint}
-        \only<3>{
-	\begin{equation*}
-	\Delta w_{11} = \eta \times  x_i  \times a_j
-	\end{equation*}}
-	\only<4>{
-	\begin{equation*}
-	\Delta w_{11} = 0.5 \times  x_i  \times a_j
-	\end{equation*}}
-	\only<5>{
-	\begin{equation*}
-	\Delta w_{11} = 0.5 \times  x_1  \times a_j
-	\end{equation*}}
-	\only<6>{
-	\begin{equation*}
-	\Delta w_{11} = 0.5 \times  x_1  \times a_1
-	\end{equation*}}
-	\only<7>{
-	\begin{equation*}
-	\Delta w_{11} = 0.5 \times  1.0  \times a_1
-	\end{equation*}}
-	\only<8>{
-	\begin{equation*}
-	\Delta w_{11} = 0.5 \times  1.0  \times 0.3
-	\end{equation*}}
-	\only<9-17>{
-	\begin{equation*}
-	\Delta w_{11} = 0.15
-	\end{equation*}}
-    \end{overprint}
+	\only<3->{\begin{center}
+	$\Delta w_{1} = \only<9->{0.15} \only<3>{\eta} \only<4-8>{0.5} \only<3-8>{\times}  \only<3-4>{x_i} \only<5-6>{x_1} \only<7-8>{1.0}\only<3-8>{\times} \only<3-5>{y_j} \only<6-7>{y_1} \only<8>{0.3}$
+	\end{center}}
+
+%      \begin{overprint}
+%         \only<3>{
+% 	\begin{equation*}
+% 	\Delta w_{1} = \eta \times  x_i  \times y_j
+% 	\end{equation*}}
+% 	\only<4>{
+% 	\begin{equation*}
+% 	\Delta w_{1} = 0.5 \times  x_i  \times y_j
+% 	\end{equation*}}
+% 	\only<5>{
+% 	\begin{equation*}
+% 	\Delta w_{1} = 0.5 \times  x_1  \times y_j
+% 	\end{equation*}}
+% 	\only<6>{
+% 	\begin{equation*}
+% 	\Delta w_{1} = 0.5 \times  x_1  \times y_1
+% 	\end{equation*}}
+% 	\only<7>{
+% 	\begin{equation*}
+% 	\Delta w_{1} = 0.5 \times  1.0  \times y_1
+% 	\end{equation*}}
+% 	\only<8>{
+% 	\begin{equation*}
+% 	\Delta w_{1} = 0.5 \times  1.0  \times 0.3
+% 	\end{equation*}}
+% 	\only<9-17>{
+% 	\begin{equation*}
+% 	\Delta w_{1} = 0.15
+% 	\end{equation*}}
+%     \end{overprint}
     
     \begin{center}
      
@@ -312,40 +505,40 @@ But we/programmers are lazy\only<2->{:
         \begin{overprint}
     	\only<10>{
 %     	\begin{equation*}
-	$\mathbf{new}~w_{11} = \mathbf{old}~ w_{11} + \Delta w_{11}$
+	$\mathbf{new}~w_{1} = \mathbf{old}~ w_{1} + \Delta w_{1}$
 % 	\end{equation*}
 	}
     	\only<11>{
 %     	\begin{equation*}
-	$\mathbf{new}~w_{11} = 0.0 + \Delta w_{11}$
+	$\mathbf{new}~w_{1} = 0.0 + \Delta w_{1}$
 % 	\end{equation*}
 	  }
     	\only<12>{
 %     	\begin{equation*}
-	$\mathbf{new}~w_{11} = 0.0 + 0.15$
+	$\mathbf{new}~w_{1} = 0.0 + 0.15$
 % 	\end{equation*}}
 	}
 	\only<13>{
 %     	\begin{equation*}
-	$\mathbf{new}~w_{11} = 0.15$
+	$\mathbf{new}~w_{1} = 0.15$
 % 	\end{equation*}
 	  }
 	  \only<14>{
 %     	\begin{equation*}
-	$w_{11} = 0.15$
+	$w_{1} = 0.15$
 % 	\end{equation*}
 	  }
 	  \only<15>{
 %     	\begin{equation*}
-	$w_{11} = 0.15$ + something positive
+	$w_{1} = 0.15$ + something positive
 % 	\end{equation*}
 	  }	\only<16>{
 %     	\begin{equation*}
-	$w_{11} = 0.15$ + something positive + something else positive +
+	$w_{1} = 0.15$ + something positive + something else positive +
 % 	\end{equation*}
-	  }	\only<17>{
+	  }	\only<17->{
 %     	\begin{equation*}
-	$w_{11} = 0.15$ + something positive + something else positive + another positive value + ...
+	$w_{1} = 0.15$ + something positive + something else positive + another positive value + ...
 % 	\end{equation*}
 	  }
     \end{overprint}    
@@ -365,13 +558,18 @@ But we/programmers are lazy\only<2->{:
 % 	$\Delta w_{11} = x_1 \times  a_1 $
      
     \end{column}
-    \begin{column}{.5\textwidth}
+    \begin{column}{.55\textwidth}
 %     \begin{block}{}
 % Your image included here
 \begin{figure}
  
- \includegraphics<1->[width=\linewidth]{./fig/3-layer_maths.pdf}
+ \begin{flushleft}
+
+ \includegraphics[height = \figheight]{./fig/perceptron_maths.pdf}
 %   \caption{Glosser.ca / CC-BY-SA-3.0}
+%     \end{block}
+
+\end{flushleft}%   \caption{Glosser.ca / CC-BY-SA-3.0}
 \end{figure}
 %     \end{block}
     \end{column}
@@ -383,7 +581,7 @@ But we/programmers are lazy\only<2->{:
 \frametitle{The perceptron}
 \framesubtitle{A simple classifier}
   \begin{columns}[T]
-    \begin{column}{.5\textwidth}    \ \\ \ \\ 
+    \begin{column}{.45\textwidth}    \ \\ \ \\ 
     \ \\
     \begin{itemize}
     
@@ -398,13 +596,15 @@ But we/programmers are lazy\only<2->{:
 \end{itemize}
 
     \end{column}
-    \begin{column}{.5\textwidth}
+    \begin{column}{.55\textwidth}
 %     \begin{block}{}
 % Your image included here
 \begin{figure}
- 
- \includegraphics[width=0.9\linewidth]{./fig/perceptron.pdf}
+  \begin{flushleft}
+
+ \includegraphics[height = \figheight]{./fig/perceptron.pdf}
 %   \caption{Glosser.ca / CC-BY-SA-3.0}
+\end{flushleft}
 \end{figure}
 %     \end{block}
     \end{column}
@@ -416,7 +616,7 @@ But we/programmers are lazy\only<2->{:
 \frametitle{How does the perceptron learn?}
 \framesubtitle{Maths again!}
   \begin{columns}[T]
-    \begin{column}{.5\textwidth} 
+    \begin{column}{.45\textwidth} 
     \ \\
     \ \\
 \begin{enumerate}
@@ -446,13 +646,18 @@ same as always!
  \end{enumerate}
 
     \end{column}
-    \begin{column}{.5\textwidth}
+    \begin{column}{.55\textwidth}
 %     \begin{block}{}
 % Your image included here
 \begin{figure}
  
- \includegraphics<1->[width=0.9\linewidth]{./fig/perceptron_maths.pdf}
+ \begin{flushleft}
+
+ \includegraphics[height = \figheight]{./fig/perceptron_maths.pdf}
 %   \caption{Glosser.ca / CC-BY-SA-3.0}
+%     \end{block}
+
+\end{flushleft}%   \caption{Glosser.ca / CC-BY-SA-3.0}
 \end{figure}
 %     \end{block}
     \end{column}
@@ -479,12 +684,12 @@ same as always!
 
 \end{enumerate}
  
- \begin{equation*}
-  \Delta w_i = \eta ( d_j - y_j ) \times x_{i}
- \end{equation*} 
+ \begin{center}
+ $ \Delta w_i = \eta$ \only<2->{$( d_j - y_j )$} \only<1>{ $y_j $} $\times x_{i}$
+ \end{center} 
   \ \\
  
- where $d$ is what we want $y$ to be given $x_i$, and $\eta$ is the learning rate.
+ \only<3->{where $d$ is what we want $y$ to be given $x_i$, and $\eta$ is the learning rate.}
 
     \end{column}
     \begin{column}{.5\textwidth}
