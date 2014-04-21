@@ -1,0 +1,102 @@
+\documentclass[a4paper,10pt]{article}
+%\documentclass[a4paper,10pt]{scrartcl}
+\usepackage{hyperref}
+% \usepackage{caption}
+\hypersetup{pdfborder={0 0 0}}
+\usepackage[all]{hypcap}
+
+
+
+\title{Pyceptron exercises}
+\author{Olivia Guest}
+\date{\today}
+
+\begin{document}
+\maketitle
+\section{Teaching the network logic}
+To explore some of the  very basic uses of neural networks, we will first attempt to teach our perceptron logical operators. Logical operators were touched on in the first part of the workshop, when we talked about \textbf{not}, \textbf{and}, \textbf{or}, etc., and applied them to truth values (e.g., true and false).
+
+Even though logical operators might seem very abstract, saying things like ``true \textbf{and} true is true'' is just a formalised way of saying much more common expressions such as ``I agree \textbf{and} you agree, therefore we both agree''. Natural language is full of such logical operations, for example when we ask questions, e.g., ``do you want sugar \textbf{or} milk in your tea?'' is equivalent to ``sugar \textbf{or} milk'' in formal logic. Such formalisation is useful because it is an easy way to avoid ambiguity which is required when programming.
+
+\subsection{Not}
+
+The first logical operator we will teach our perceptron is the \textbf{not} operation. This requires one input unit and one output unit because negation (a synonym for not) is applied to one variable (or in our case input unit) at a time. So when we give the network a 0 we want it to return a 1, and when we give the network a 1 we need a 0 on the output. That means our training patterns are 0 and 1, and our targets are 1 and 0, in that order. \autoref{tbl:not} represents our patterns and their required targets. 
+%modify this section to say where in the code you need to edit stuff
+
+\begin{table}[hb]
+ \centering
+ \begin{tabular}[t]{cc}
+Input & Output\\ \hline
+0 & 1\\
+1 & 0
+\end{tabular} \caption{Truth table for logical \textbf{not}.}
+ \label{tbl:not}
+\end{table}
+
+Once you have made the required changes, run the network to see what happens and how long it takes to train. 
+
+\ \\ Can the network learn \textbf{not}?    Yes / No                                               
+                                                     
+
+\subsection{And}
+
+Now let's teach it something a little more complex, the most basic form of logical \textbf{and} is that with two inputs (e.g., false \textbf{and} true is false) and it always has one output. Meaning that the network needs to learn the input-output mapping given in \autoref{tbl:and}. By looking at \autoref{tbl:and}, you might notice that now there are three units, two input units and the same number of output units as before. So we need to modify the network to have two input units, leaving the single output unit untouched. Thankfully, the code can figure out the number of input and output units required based on the patterns and targets you give it. This is something I wrote myself, if you want to see how that is done see, but do not get bogged down with understanding this  %modify this section to say where in the code you need to edit stuff
+Once the patterns and targets are set, run the network like before and see what happens.
+
+\ \\ Can the network learn \textbf{and}?    Yes / No                                             
+
+\begin{table}[ht]
+ \centering
+ \begin{tabular}[t]{ccc}
+Input 1 & Input 2 & Output\\ \hline
+0 & 0 & 0\\
+0 & 1 & 0 \\
+1 & 0 & 0 \\
+1 & 1 & 1 \\
+
+\end{tabular} \caption{Truth table for logical \textbf{and}.}
+ \label{tbl:and}
+\end{table}
+
+\subsection{Or}
+
+Now let's do the same for \textbf{or}. Logical \textbf{or} returns a 1, or true, if either input is on. In other words, it only returns 0 when neither are 1, as shown in \autoref{tbl:or}. Remember that at any point you can check what any logical operator does directly in the Python shell, e.g., by typing \texttt{False or True}, Python will say \texttt{True} (corresponding to the 3rd line of \autoref{tbl:or}).
+
+\ \\ Can the network learn \textbf{or}?    Yes / No                                             
+
+\begin{table}[ht]
+ \centering
+ \begin{tabular}[t]{ccc}
+Input 1 & Input 2 & Output\\ \hline
+0 & 0 & 0\\
+0 & 1 & 1 \\
+1 & 0 & 1 \\
+1 & 1 & 1 \\
+
+\end{tabular} \caption{Truth table for logical \textbf{or}.}
+ \label{tbl:or}
+\end{table}
+
+\subsection{Xor}
+Things start to become interesting when we teach the network \textbf{xor}, also known as exclusive or. Like its namesake \textbf{or}, \textbf{xor} returns true when either one or the other inputs are true, \emph{but it does not} return true when both are true (compare \autoref{tbl:xor} with \autoref{tbl:or}).  
+
+
+In Python one way of specifying \textbf{xor} is by using \texttt{(a and not b) or (b and not a)}. You do not need to know this to program the network, because the network figures out how to map inputs onto outputs itself, or at least tries to...
+
+\begin{table}[ht]
+ \centering
+ \begin{tabular}[t]{ccc}
+Input 1 & Input 2 & Output\\ \hline
+0 & 0 & 0\\
+0 & 1 & 1 \\
+1 & 0 & 1 \\
+1 & 1 & 0 \\
+
+\end{tabular} \caption{Truth table for logical \textbf{xor}.}
+ \label{tbl:xor}
+\end{table}
+
+
+\ \\ Can the network learn \textbf{xor}?    Yes / No   
+\ \\
+\end{document}

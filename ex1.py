@@ -1,44 +1,54 @@
-from math import pi
-import random as r
-import copy as cop
-import time
+from pyceptron import *
 
-import pygame
-from pygame.locals import *
+#Patterns = [
+            #[0.0],
+            #[1.0],
+           #]
 
-import pyceptron
+#Targets = [
+           #[1.0], #first target, corresponds to first pattern
+           #[0.0],
+         
+          #]
+          
+          
+#Patterns = [
+            #[0.0, 0.0],
+            #[0.0, 1.0],
+            #[1.0, 0.0],
+            #[1.0, 1.0]
+           #]
 
-#preset colours
-magenta = [255, 0, 255]
-black = [0, 0 , 0]
-white = [255, 255 , 255]
+#Targets = [
+           #[0.0], #first target, corresponds to first pattern
+           #[1.0],
+           #[1.0],
+           #[1.0],
+         
+          #]
+          
+          
+Patterns = [
+            [0.0, 0.0],
+            [0.0, 1.0],
+            [1.0, 0.0],
+            [1.0, 1.0]
+           ]
 
-height = 600
-width = 600
-#initialise pygame
-pygame.init()
-screen = pygame.display.set_mode((width, height))
-pygame.display.set_caption("Pyceptron")
-background = pygame.Surface(screen.get_size())
-background = background.convert()
-background.fill([200, 200, 200])
-screen.blit(background, (0, 0))
+Targets = [
+           [0.0], #first target, corresponds to first pattern
+           [0.0],
+           [0.0],
+           [1.0],
+         
+          ]  
 
-#varibles for position and size of our unit
-radius = int(height/10)
-x_spacing = int(radius*2.5)
-y_spacing = int(radius*2.5)
-x_offset = int(width / 2.0)
-y_offset = int(height / 2.0)
+N = Network(Patterns, Targets)
 
-#here we are defining our unit
-My_unit = pyceptron.Unit(0, 0, x_offset, y_offset, colour = [109, 201, 222], radius = 100)
+N.Train()
 
-#and here we are asking for it to draw itself on the screen
-My_unit.Draw()    
-      
-#refresh the screen
-pygame.display.update()
+N.Run()
+  
 
 #loop to fall into once the main stuff has been done
 while (1):
