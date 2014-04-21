@@ -43,7 +43,7 @@
 % 
 % ``Getting an education was a bit like a communicable sexual disease. It made you unsuitable for a lot of jobs and then you had the urge to pass it on.''
 % \\ \
-\vfill \Huge
+\vfill \huge
 \centering Part 2: \textbf{Introduction to artificial neural networks} \large
 \vfill
 \textit{
@@ -61,14 +61,14 @@ Nick Sexton \hfill Nicole Cruz De Echeverria Loebell }
     \begin{column}{.45\textwidth} 
      \ \\ 
      \ \\
-\begin{itemize}
+\begin{itemize}[<+->]
 \item Inspired by the nervous system \\ \
  \item A set of \emph{units}, connected by \emph{weights} \\ \
 \item The network \emph{runs} by passing \emph{activations} from the \emph{input} (to the \emph{hidden}) to the \emph{output} units \\ \
 \end{itemize}
 \end{column}
 \begin{column}{.55\textwidth}
-\begin{figure}
+\begin{figure}[t]
  \begin{flushleft}
 
  \includegraphics[height = \figheight]{./fig/3-layer.pdf}
@@ -86,7 +86,7 @@ Nick Sexton \hfill Nicole Cruz De Echeverria Loebell }
 \begin{frame}
 \frametitle{Why use artificial neural networks for modelling?}
 \framesubtitle{Some aspects of their behaviour are like their namesake!}
-\begin{itemize}
+\begin{itemize}[<+->]
 \item Learn pretty much any input-output data \\ \
  \item Uncover rules on their own about data  \\ \
 \item Generalise from what they have learnt \\ \
@@ -134,7 +134,7 @@ Nick Sexton \hfill Nicole Cruz De Echeverria Loebell }
 % Your image included here
 % \begin{figure}
 
-\begin{figure}
+\begin{figure}[t]
 
 
 \begin{flushleft}
@@ -222,7 +222,7 @@ Nick Sexton \hfill Nicole Cruz De Echeverria Loebell }
     \begin{column}{.55\textwidth}
 %     \begin{block}{}
 % Your image included here
-	\begin{figure}
+	\begin{figure}[t]
 	\begin{flushleft}
 	
 	\includegraphics<1-2>[height = \figheight]{./fig/3-layer.pdf}
@@ -273,7 +273,7 @@ We use general names to write a general equation:
 	\end{equation*}}
     \end{overprint}
     
-\only<7->{where $a_i$ is the unit whose state we want to calculate, $N$ is the number of units on the previous layer, $w_{ji}$ is the weight on the connection between $i$ and $j$, and $f$ is a function that the unit applies.}
+\only<6->{where $a_i$ is the unit whose state we want to calculate, $N$ is the number of units on the previous layer, $w_{ji}$ is the weight on the connection between $i$ and $j$, and $f$ is a function that the unit applies.}
 
 % Which means, to calculate, e.g., $a_1$ multiply all the states in layer before with the incoming weight and then add them up. So in our case all the $x_1~...~x_3$ because $N = 3$.  
 % \end{block}
@@ -281,7 +281,7 @@ We use general names to write a general equation:
     \begin{column}{.55\textwidth}
 %     \begin{block}{}
 % Your image included here
-	\begin{figure}
+	\begin{figure}[t]
 	\begin{flushleft}
 	
 	\includegraphics[height = \figheight]{./fig/3-layer_maths.pdf}
@@ -378,7 +378,7 @@ We use this equation by replacing \emph{iterators} $i$ and $j$:
     \begin{column}{.55\textwidth}
 %     \begin{block}{}
 % Your image included here
-	\begin{figure}
+	\begin{figure}[t]
 	\begin{flushleft}
 	
 	\includegraphics[height = \figheight]{./fig/3-layer_maths.pdf}
@@ -406,7 +406,7 @@ We use this equation by replacing \emph{iterators} $i$ and $j$:
 \framesubtitle{A very simple learning rule}
   \begin{columns}[T]
     \begin{column}{.45\textwidth}
-    \ \\ 
+    \ \\     \ \\     \ \\ 
 %     \onslide<1->{
 %     Units that are \emph{on} together in the pattern set are made to \emph{be} on together when the network is run:
 
@@ -437,21 +437,17 @@ We use this equation by replacing \emph{iterators} $i$ and $j$:
     \begin{column}{.55\textwidth}
 %     \begin{block}{}
 % Your image included here
- \begin{flushleft}
-
+ \begin{figure}[t]
+\centering
  \includegraphics[height = \figheight]{./fig/perceptron_maths.pdf}
-%   \caption{Glosser.ca / CC-BY-SA-3.0}
-%     \end{block}
- \vspace{1cm}
-
-\end{flushleft}
+\end{figure}
     \end{column}
   \end{columns}
 \end{frame}
 
 \begin{frame}
 \frametitle{Hebbian learning}
-% \framesubtitle{``Cells that fire together, wire together'' --- Carla Shatz }
+\framesubtitle{``Cells that fire together, wire together'' --- Carla Shatz }
   \begin{columns}[T]
     \begin{column}{.45\textwidth}
     \ \\ 
@@ -561,15 +557,13 @@ We use this equation by replacing \emph{iterators} $i$ and $j$:
     \begin{column}{.55\textwidth}
 %     \begin{block}{}
 % Your image included here
-\begin{figure}
+\begin{figure}[t]
  
- \begin{flushleft}
-
+\centering
  \includegraphics[height = \figheight]{./fig/perceptron_maths.pdf}
 %   \caption{Glosser.ca / CC-BY-SA-3.0}
 %     \end{block}
 
-\end{flushleft}%   \caption{Glosser.ca / CC-BY-SA-3.0}
 \end{figure}
 %     \end{block}
     \end{column}
@@ -597,16 +591,10 @@ We use this equation by replacing \emph{iterators} $i$ and $j$:
 
     \end{column}
     \begin{column}{.55\textwidth}
-%     \begin{block}{}
-% Your image included here
-\begin{figure}
-  \begin{flushleft}
-
+\begin{figure}[t]
+\centering
  \includegraphics[height = \figheight]{./fig/perceptron.pdf}
-%   \caption{Glosser.ca / CC-BY-SA-3.0}
-\end{flushleft}
 \end{figure}
-%     \end{block}
     \end{column}
   \end{columns}
 \end{frame}
@@ -649,17 +637,10 @@ same as always!
     \begin{column}{.55\textwidth}
 %     \begin{block}{}
 % Your image included here
-\begin{figure}
- 
- \begin{flushleft}
-
+\begin{figure}[t]
+ \centering
  \includegraphics[height = \figheight]{./fig/perceptron_maths.pdf}
-%   \caption{Glosser.ca / CC-BY-SA-3.0}
-%     \end{block}
-
-\end{flushleft}%   \caption{Glosser.ca / CC-BY-SA-3.0}
 \end{figure}
-%     \end{block}
     \end{column}
   \end{columns}
 \end{frame}
@@ -669,7 +650,7 @@ same as always!
 \frametitle{How does the perceptron learn?}
 \framesubtitle{Maths again!}
   \begin{columns}[T]
-    \begin{column}{.5\textwidth} 
+    \begin{column}{.45\textwidth} 
         \  \\
  \   \\ 
 \begin{enumerate}
@@ -692,13 +673,12 @@ same as always!
  \only<3->{where $d$ is what we want $y$ to be given $x$, and $\eta$ is the learning rate.}
 
     \end{column}
-    \begin{column}{.5\textwidth}
+    \begin{column}{.55\textwidth}
 %     \begin{block}{}
 % Your image included here
-\begin{figure}
- 
- \includegraphics[width=0.9\linewidth]{./fig/perceptron_maths.pdf}
-%   \caption{Glosser.ca / CC-BY-SA-3.0}
+\begin{figure}[t]
+\centering
+\includegraphics[height = \figheight]{./fig/perceptron_maths.pdf}
 \end{figure}
 %     \end{block}
     \end{column}
@@ -710,7 +690,7 @@ same as always!
 \frametitle{How does the perceptron learn?}
 \framesubtitle{Maths again!}
   \begin{columns}[T]
-    \begin{column}{.5\textwidth} 
+    \begin{column}{.45\textwidth} 
         \  \\
  \   \\ 
 \begin{enumerate}
@@ -734,15 +714,13 @@ same as always!
 
 
     \end{column}
-    \begin{column}{.5\textwidth}
+    \begin{column}{.55\textwidth}
 %     \begin{block}{}
 % Your image included here
-\begin{figure}
- 
- \includegraphics<1->[width=0.9\linewidth]{./fig/perceptron_maths.pdf}
-%   \caption{Glosser.ca / CC-BY-SA-3.0}
+\begin{figure}[t]
+ \centering
+ \includegraphics[height = \figheight]{./fig/perceptron_maths.pdf}
 \end{figure}
-%     \end{block}
     \end{column}
   \end{columns}
 \end{frame}
@@ -758,6 +736,8 @@ same as always!
 
  \Huge Time to program a perceptron!
 \end{frame}
+
+
 
 
 
