@@ -215,7 +215,7 @@ class Network(object):
             #cycle through the units of the previous layer so we can connect them to their counterparts on this layer
             self.weights[l][unit_on_prev_layer][unit_on_this_layer] = Weight(self.layer[l-1][unit_on_prev_layer], self.layer[l][unit_on_this_layer], strength = random.gauss(0.5, 0.01),  screen = self.screen)
             self.weights[l][unit_on_prev_layer][unit_on_this_layer].Draw()
-          self.biases[l][unit_on_this_layer] = Bias(None, self.layer[l][unit_on_this_layer],strength = random.gauss(-1.0, 0.01))
+          self.biases[l][unit_on_this_layer] = Bias(None, self.layer[l][unit_on_this_layer],strength = random.gauss(0.0, 0.01))
           self.layer[l][unit_on_this_layer].Set_bias(self.biases[l][unit_on_this_layer])
 
   def Run(self):
