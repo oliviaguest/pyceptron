@@ -1,6 +1,7 @@
 \documentclass{beamer}
 % \usefonttheme{professionalfonts}
 \usefonttheme{professionalfonts}
+\usepackage{listings}
 
 \usepackage{amsmath}
 \usepackage{cancel}
@@ -20,6 +21,48 @@
 % \usefonttheme{serif}
 \graphicspath{{img/}}
 \captionsetup{font=scriptsize, labelfont=scriptsize}
+
+
+\usepackage{showexpl}
+
+\definecolor{codebg}{HTML}{F3D5F5}
+
+\lstset{language=Python,
+breakatwhitespace=false, showspaces=false, showtabs=false, breakatwhitespace=false, breaklines=false, 
+backgroundcolor=\color{codebg}}
+
+\lstdefinestyle{highlight}{keywordstyle=\color{blue},
+breakatwhitespace=false, showspaces=false, showtabs=false, breakatwhitespace=false, breaklines=false, 
+commentstyle=\ttfamily\color{purple}}
+\lstdefinestyle{base}{
+%   language=Python,
+  basicstyle=\ttfamily\color{codebg},
+  breakatwhitespace=false, showspaces=false,showstringspaces=false, showtabs=false, breakatwhitespace=false, breaklines=false, 
+  keywordstyle=\color{codebg},
+  commentstyle=\ttfamily\color{codebg},
+  moredelim=**[is][\only<1->{\color{black}\lstset{style=highlight}}]{@}{@},
+  moredelim=**[is][\only<1->{\color{black}\lstset{style=highlight}}]{@1}{@},
+  moredelim=**[is][\only<2->{\color{black}\lstset{style=highlight}}]{@2}{@},
+  moredelim=**[is][\only<3->{\color{black}\lstset{style=highlight}}]{@3}{@},
+  moredelim=**[is][\only<4->{\color{black}\lstset{style=highlight}}]{@4}{@},
+  moredelim=**[is][\only<5->{\color{black}\lstset{style=highlight}}]{@5}{@},
+  moredelim=**[is][\only<6->{\color{black}\lstset{style=highlight}}]{@6}{@},
+  moredelim=**[is][\only<7->{\color{black}\lstset{style=highlight}}]{@7}{@},
+  moredelim=**[is][\only<8->{\color{black}\lstset{style=highlight}}]{@8}{@},
+  moredelim=**[is][\only<9->{\color{black}\lstset{style=highlight}}]{@9}{@}, 
+  moredelim=**[is][\only<1>{\color{black}\lstset{style=highlight}}]{~}{~},
+  moredelim=**[is][\only<1>{\color{black}\lstset{style=highlight}}]{~1}{~},
+  moredelim=**[is][\only<2>{\color{black}\lstset{style=highlight}}]{~2}{~},
+  moredelim=**[is][\only<3>{\color{black}\lstset{style=highlight}}]{~3}{~},
+  moredelim=**[is][\only<4>{\color{black}\lstset{style=highlight}}]{~4}{~},
+  moredelim=**[is][\only<5>{\color{black}\lstset{style=highlight}}]{~5}{~},
+  moredelim=**[is][\only<6>{\color{black}\lstset{style=highlight}}]{~6}{~},
+  moredelim=**[is][\only<7>{\color{black}\lstset{style=highlight}}]{~7}{~},
+  moredelim=**[is][\only<8>{\color{black}\lstset{style=highlight}}]{~8}{~},
+  moredelim=**[is][\only<9>{\color{black}\lstset{style=highlight}}]{~9}{~}
+%   texcl=true,escapebegin=\hskip-6cm\color{red}
+}
+
 \begin{document}
 
 
@@ -729,7 +772,7 @@ same as always!
 
 
 \begin{frame}
-\frametitle{The end}
+\frametitle{Perceptron coding time}
 \framesubtitle{}
         \  \\
 
@@ -740,7 +783,30 @@ same as always!
 
 \end{frame}
 
+\begin{frame}[fragile]
+\frametitle{Training the network}
+\framesubtitle{}
+\begin{lstlisting}[style=base]
+@1def Train(self):@      
+@2      x = self.input_units@ 
+@2      w = self.weights@
+@2      h = self.learning_rate@
+@2      
+@3      for n in range(100):@
+@3	    for p in range(len(self.patterns)):@     
+@4		  for i in range(len(self.patterns[p])):@
+@4		    x[i] = self.patterns[p][i]@
+@5		  y = 0@
+@5		  for i in range(1+len(self.patterns[p])):@
+@5		    y += x[i] * w[i]@
+@6		  self.output_units[0] = f(y)@
+@6		  error = self.targets[p][0] - self.output_units[0]@
+@1		  for i in range(1+len(self.patterns[p])):@
+@1		    w[i] += h * error * x[i]@
+@1		  self.Draw()@
+\end{lstlisting}
 
+\end{frame}
 
 
 
