@@ -145,13 +145,13 @@ class Network(object):
                     y = 0
                     for i in range(N+1): 
                       y += x[i] * w[i]
-
-                    self.output_units[0] = f(y)
+                    y = f(y)
+                    self.output_units[0] = y
                     #print "y = ", y
-                    error = d[p][0] - self.output_units[0]
+                    error = d[p][0] - y
                     #print "f(y) = ", self.output_units[0]
 
-                    print "error = ", error
+                    #print "error = ", error
                     for i in range(N+1): 
                       w[i] += h * error * x[i]
 
@@ -188,19 +188,21 @@ class Network(object):
 
 
 Patterns = [
-            [0.1, 0.0, 0.2], #loquat
-            [0.0, 0.2, 0.0], #lemon
-            [1.0, 0.5, 0.8], #red apple
-            [1.0, 0.0, 0.9], #strawberry
-           ]
+         #colour, shape, taste
+         #red-yellow, big-small, sweet-sour
+         [0.1, 0.0, 0.2], #loquat 
+         [0.0, 0.2, 0.0], #lemon 
+         [1.0, 0.5, 0.8], #red apple 
+         [1.0, 0.0, 0.9], #strawberry 
+        ]
 
 Targets = [
            [1.0], #first target
-           [1.0],
-           [0.0],
-           [0.0],
-         
-          ]            
+           [1.0], #targets indicate 
+           [0.0], #which class
+           [0.0], #a pattern         
+          ] #belongs to           
+                   
 
 def Main():
   #below this line are things that will be run - above it are just declarations and definitions of classes, etc.

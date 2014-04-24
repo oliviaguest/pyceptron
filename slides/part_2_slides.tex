@@ -797,8 +797,9 @@ same as always!
 @2                x[i] = self.patterns[p][i]@
 @6            y = 0@
 @5            for i in range(N+1):@
-@4                y += f(x[i] * w[i])@
-@             error = d[p][0] - y@
+@4                y += x[i] * w[i]@
+@4            y = f(y)
+@9            error = d[p][0] - y@
 @10           for i in range(N+1):@
 @9                w[i] += h * error * x[i]@
 \end{lstlisting}

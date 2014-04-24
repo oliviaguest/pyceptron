@@ -4,6 +4,8 @@
 % \usepackage{caption}
 \hypersetup{pdfborder={0 0 0}}
 \usepackage[all]{hypcap}
+\usepackage{default}
+\usepackage{graphicx}
 
 
 
@@ -13,6 +15,60 @@
 
 \begin{document}
 \maketitle
+\section{Running a perceptron on paper}
+Yes, this can be done. 
+
+\begin{figure}[hb]
+ \centering
+ \includegraphics{../slides/fig/perceptron_empty.pdf}
+ \caption{A perceptron that you can run on paper.}
+ \label{fig:perceptron}
+\end{figure}
+\section{Playing around with the network}
+Firstly, let's have a go playing around, but hopefully not breaking, the network (see \autoref{fig:perceptron}). However, don't worry if you do break it, there is an infinite supply.
+
+So let's have a go at looking at the code that makes it learn. Go to the part that says \texttt{def Train(self):}. This function, as I probably already explained, does a bunch of things that essentially implement the two basic equations. The first equation is that for calculating the activation of the output unit(s): 
+\begin{equation}
+y_j = f \left( \sum_1^N w_i \times x_i \right)
+\end{equation} 
+where $y_j$ is the (output) unit whose state we want to calculate, $N$ is the number of units on the previous layer, $w_{i}$ is the weight on the connection between $i$ and $j$, and $f$ is a function that the unit applies. In the code we can write that in many ways, just like you can say the same or similar things in natural language in a number of different ways. I decided on this:      \begin{verbatim}
+              for i in range(N+1): 
+                      y += x[i] * w[i]
+                      
+              y = f(y)
+\end{verbatim} and hopefully you can guess what each variable is based on the equation. Please ask for help if something is not making sense straight away.
+
+The second, and equally important equation, we need is the one that trains the weights:
+\begin{equation}
+\Delta w_i = \eta  ( d_j - y_j ) \times x_{i}
+\end{equation} 
+where $d$ is what we want $y$ to be given $x$, and $\eta$ is the learning rate. In other words $d$ is the target, $y$ is as before the output unit (or units), and $x$ are the unit units. As before, there are a number of different ways to say this in Python. Hopefully, my choice is a clear translation:
+\begin{verbatim}
+                   error = d[p][0] - y
+                   
+                   for i in range(N+1): 
+                      w[i] += h * error * x[i]\end{verbatim} 
+
+\begin{figure}[hb]
+ \centering
+ \includegraphics{../slides/fig/perceptron_maths.pdf}
+ \caption{A perceptron}
+ \label{fig:perceptron}
+\end{figure}
+
+Now that you have a slightly clearer idea (if not --- ask me or a demonstrator for clarification) of how the network works, have a go changing things to see what happens:
+
+\begin{enumerate}
+ \item Change the value of the learning rate $\eta$, aka \texttt{h}. What happens?
+ \item Does printing out the values of the variables, e.g., \texttt{w}, \texttt{h}, \texttt{x}, \texttt{y}, etc. help you understand what's going on?
+ \item What does \texttt{self.Draw()} do? Try commenting it out.
+ \item What does the function \texttt{def Run(self):} (below \texttt{Train}) do?
+ \item Can you spot similarities (and differences) between \texttt{Run} and \texttt{Train}? Imagine if it was called something less informative than  \texttt{Run}, would you still be able to reverse-engineer it?
+\end{enumerate}
+
+
+
+
 \section{Teaching the network logic}
 To explore some of the  very basic uses of neural networks, we will first attempt to teach our perceptron logical operators. Logical operators were touched on in the first part of the workshop, when we talked about \textbf{not}, \textbf{and}, \textbf{or}, etc., and applied them to truth values (e.g., true and false).
 
