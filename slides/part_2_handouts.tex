@@ -1,6 +1,7 @@
-\documentclass[handout]{beamer}
+\documentclass[handouts]{beamer}
 % \usefonttheme{professionalfonts}
 \usefonttheme{professionalfonts}
+\usepackage{listings}
 
 \usepackage{amsmath}
 \usepackage{cancel}
@@ -20,6 +21,51 @@
 % \usefonttheme{serif}
 \graphicspath{{img/}}
 \captionsetup{font=scriptsize, labelfont=scriptsize}
+
+
+\usepackage{showexpl}
+
+\definecolor{codebg}{HTML}{F3D5F5}
+
+\lstset{language=Python,
+breakatwhitespace=false, showspaces=false, showtabs=false, breakatwhitespace=false, breaklines=false, 
+backgroundcolor=\color{codebg}}
+
+\lstdefinestyle{highlight}{keywordstyle=\color{blue},
+breakatwhitespace=false, showspaces=false, showtabs=false, breakatwhitespace=false, breaklines=false, 
+commentstyle=\ttfamily\color{purple}}
+\lstdefinestyle{base}{
+%   language=Python,
+  basicstyle=\ttfamily\color{codebg},
+  breakatwhitespace=false, showspaces=false,showstringspaces=false, showtabs=false, breakatwhitespace=false, breaklines=false, 
+  keywordstyle=\color{codebg},
+  commentstyle=\ttfamily\color{codebg},
+  moredelim=**[is][\only<1->{\color{black}\lstset{style=highlight}}]{@}{@},
+  moredelim=**[is][\only<1->{\color{black}\lstset{style=highlight}}]{@1}{@},
+  moredelim=**[is][\only<2->{\color{black}\lstset{style=highlight}}]{@2}{@},
+  moredelim=**[is][\only<3->{\color{black}\lstset{style=highlight}}]{@3}{@},
+  moredelim=**[is][\only<4->{\color{black}\lstset{style=highlight}}]{@4}{@},
+  moredelim=**[is][\only<5->{\color{black}\lstset{style=highlight}}]{@5}{@},
+  moredelim=**[is][\only<6->{\color{black}\lstset{style=highlight}}]{@6}{@},
+  moredelim=**[is][\only<7->{\color{black}\lstset{style=highlight}}]{@7}{@},
+  moredelim=**[is][\only<8->{\color{black}\lstset{style=highlight}}]{@8}{@},
+  moredelim=**[is][\only<9->{\color{black}\lstset{style=highlight}}]{@9}{@}, 
+  moredelim=**[is][\only<10->{\color{black}\lstset{style=highlight}}]{@10}{@}, 
+  moredelim=**[is][\only<11->{\color{black}\lstset{style=highlight}}]{@11}{@}, 
+  moredelim=**[is][\only<12->{\color{black}\lstset{style=highlight}}]{@12}{@}, 
+  moredelim=**[is][\only<1>{\color{black}\lstset{style=highlight}}]{~}{~},
+  moredelim=**[is][\only<1>{\color{black}\lstset{style=highlight}}]{~1}{~},
+  moredelim=**[is][\only<2>{\color{black}\lstset{style=highlight}}]{~2}{~},
+  moredelim=**[is][\only<3>{\color{black}\lstset{style=highlight}}]{~3}{~},
+  moredelim=**[is][\only<4>{\color{black}\lstset{style=highlight}}]{~4}{~},
+  moredelim=**[is][\only<5>{\color{black}\lstset{style=highlight}}]{~5}{~},
+  moredelim=**[is][\only<6>{\color{black}\lstset{style=highlight}}]{~6}{~},
+  moredelim=**[is][\only<7>{\color{black}\lstset{style=highlight}}]{~7}{~},
+  moredelim=**[is][\only<8>{\color{black}\lstset{style=highlight}}]{~8}{~},
+  moredelim=**[is][\only<9>{\color{black}\lstset{style=highlight}}]{~9}{~}
+%   texcl=true,escapebegin=\hskip-6cm\color{red}
+}
+
 \begin{document}
 
 
@@ -726,8 +772,10 @@ same as always!
 \end{frame}
 
 
+
+
 \begin{frame}
-\frametitle{The end}
+\frametitle{Perceptron coding time}
 \framesubtitle{}
         \  \\
 
@@ -738,6 +786,47 @@ same as always!
 
 \end{frame}
 
+\begin{frame}[fragile]
+\frametitle{Training the network}
+\framesubtitle{The basic algorithm!}
+\begin{lstlisting}[style=base]
+@1def Train(self):@          
+@12   for t in range(100):@
+@11       for p in range(P):@     
+@3            for i in range(N):@
+@2                x[i] = self.patterns[p][i]@
+@6            y = 0@
+@5            for i in range(N+1):@
+@4                y += x[i] * w[i]@
+@4            y = f(y)
+@9            error = d[p][0] - y@
+@10           for i in range(N+1):@
+@9                w[i] += h * error * x[i]@
+\end{lstlisting}
 
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Training the network}
+\framesubtitle{Defining some patterns!}
+\begin{lstlisting}[style=base]
+@Patterns =@
+        @[#colour, shape, taste
+         @@#red-yellow, big-small, sweet-sour
+         @@[0.1, 0.0, 0.2], #loquat 
+         @@[0.0, 0.2, 0.0], #lemon 
+         @@[1.0, 0.5, 0.8], #red apple 
+         @@[1.0, 0.0, 0.9], #strawberry 
+        @@]@
 
+@2Targets = [@
+           @2[1.0], #first target
+           @@2[1.0], #targets indicate 
+           @@2[0.0], #which class
+           @@2[0.0], #a pattern         
+          @@2] #belongs to           
+          @
+
+\end{lstlisting}
+
+\end{frame}
 \end{document}
