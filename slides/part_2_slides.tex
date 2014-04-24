@@ -50,6 +50,9 @@ commentstyle=\ttfamily\color{purple}}
   moredelim=**[is][\only<7->{\color{black}\lstset{style=highlight}}]{@7}{@},
   moredelim=**[is][\only<8->{\color{black}\lstset{style=highlight}}]{@8}{@},
   moredelim=**[is][\only<9->{\color{black}\lstset{style=highlight}}]{@9}{@}, 
+  moredelim=**[is][\only<10->{\color{black}\lstset{style=highlight}}]{@10}{@}, 
+  moredelim=**[is][\only<11->{\color{black}\lstset{style=highlight}}]{@11}{@}, 
+  moredelim=**[is][\only<12->{\color{black}\lstset{style=highlight}}]{@12}{@}, 
   moredelim=**[is][\only<1>{\color{black}\lstset{style=highlight}}]{~}{~},
   moredelim=**[is][\only<1>{\color{black}\lstset{style=highlight}}]{~1}{~},
   moredelim=**[is][\only<2>{\color{black}\lstset{style=highlight}}]{~2}{~},
@@ -785,29 +788,44 @@ same as always!
 
 \begin{frame}[fragile]
 \frametitle{Training the network}
-\framesubtitle{}
+\framesubtitle{The basic algorithm!}
 \begin{lstlisting}[style=base]
-@1def Train(self):@      
-@2      x = self.input_units@ 
-@2      w = self.weights@
-@2      h = self.learning_rate@
-@2      
-@3      for n in range(100):@
-@3	    for p in range(len(self.patterns)):@     
-@4		  for i in range(len(self.patterns[p])):@
-@4		    x[i] = self.patterns[p][i]@
-@5		  y = 0@
-@5		  for i in range(1+len(self.patterns[p])):@
-@5		    y += x[i] * w[i]@
-@6		  self.output_units[0] = f(y)@
-@6		  error = self.targets[p][0] - self.output_units[0]@
-@1		  for i in range(1+len(self.patterns[p])):@
-@1		    w[i] += h * error * x[i]@
-@1		  self.Draw()@
+@1def Train(self):@          
+@12   for t in range(100):@
+@11       for p in range(P):@     
+@3            for i in range(N):@
+@2                x[i] = self.patterns[p][i]@
+@6            y = 0@
+@5            for i in range(N+1):@
+@4                y += f(x[i] * w[i])@
+@             error = d[p][0] - y@
+@10           for i in range(N+1):@
+@9                w[i] += h * error * x[i]@
 \end{lstlisting}
 
 \end{frame}
+\begin{frame}[fragile]
+\frametitle{Training the network}
+\framesubtitle{Defining some patterns!}
+\begin{lstlisting}[style=base]
+@Patterns =@
+        @[#colour, shape, taste
+         @@#red-yellow, big-small, sweet-sour
+         @@[0.1, 0.0, 0.2], #loquat 
+         @@[0.0, 0.2, 0.0], #lemon 
+         @@[1.0, 0.5, 0.8], #red apple 
+         @@[1.0, 0.0, 0.9], #strawberry 
+        @@]@
 
+@2Targets = [@
+           @2[1.0], #first target
+           @@2[1.0], #targets indicate 
+           @@2[0.0], #which class
+           @@2[0.0], #a pattern         
+          @@2] #belongs to           
+          @
 
+\end{lstlisting}
 
+\end{frame}
 \end{document}
