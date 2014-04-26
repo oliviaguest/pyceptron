@@ -1,11 +1,12 @@
 from math import *
 import random 
-import copy as cop
+#import copy as cop
 import time
-import matplotlib
 import numpy
 import pygame
 from pygame.locals import *
+import matplotlib.pyplot as plt
+
 
 def get_angle(x1, y1, x2, y2):
   dx = x2 - x1
@@ -13,7 +14,7 @@ def get_angle(x1, y1, x2, y2):
   return atan2(dy,dx)
 
 #preset colours
-magenta = [255, 0, 255]
+#magenta = [255, 0, 255]
 black = [0, 0 , 0]
 white = [255, 255 , 255]
 
@@ -41,9 +42,11 @@ class Network(object):
     self.input_units =  numpy.ones(len(patterns[0])+1)
     self.output_units = numpy.zeros(len(targets[0]))
     self.patterns = patterns
-    self.targets = targets
+    self.targets = numpy.asarray(targets)
     self.learning_rate = learning_rate
-    self.weights = numpy.zeros(len(self.input_units))
+    self.weights = numpy.ones(len(self.input_units))
+    for i in range(len(self.weights)):
+      self.weights[i] = random.gauss(0, 0.05)
     self.errors = []
     self.learning_rate = 0.2
     self.layers = 2
@@ -86,10 +89,38 @@ class Network(object):
       x2 = self.output_units_x[i]
       y2 = self.output_units_y[i]
       pygame.draw.circle(self.screen, black, (int(x2), int(y2)), self.radius, 2)
-
+      
     pygame.display.update()
+    
+    # Graphing stuff
+    self.graph_x = []
+    self.graph_y = []
+    if (len(self.patterns[0])) < 3:
+      for i, sub_x in enumerate(self.patterns):
+        self.graph_x.append(sub_x[0])
+        self.graph_y.append(sub_x[1])
+    self.line = plt.plot(1, 1, 'k-')
  
+  def Graph(self):
+      self.line.pop(0).remove()
+      line_x = []
+      line_y = [] 
+      colour = {1: 'ro', 0: 'bs'}
+     
+      line_x = [2, -2]
+      line_y = numpy.zeros(2)
+      line_y[0] = (-self.weights[2] - self.weights[0] * line_x[0]) / self.weights[1]
+      line_y[1] = (-self.weights[2] - self.weights[0] * line_x[1]) / self.weights[1]
+      plt.ion() 
 
+      for i, sub_x in enumerate(self.patterns):
+          plt.plot(sub_x[0], sub_x[1], colour[self.targets[i][0]])
+         
+      plt.axis([-1, 2, -1, 2])
+      self.line = plt.plot(line_x, line_y, 'k-')
+      
+      
+      plt.draw()
   def Draw(self):
     # GUI stuff
     
@@ -130,37 +161,40 @@ class Network(object):
   def Train(self):
        
         x = self.input_units 
+        y = self.output_units
         w = self.weights
         h = self.learning_rate
         d = self.targets
         N = len(self.patterns[0])
         P = len(self.patterns)
-        
-        for t in range(100):
+
+        for t in range(1000):
               for p in range(P):
                         
                     for i in range(N):    
                       x[i] = self.patterns[p][i]
-                    #print "x = ", x[0:2]
-                    y = 0
+                    y[0] = 0
                     for i in range(N+1): 
-                      y += x[i] * w[i]
-                    y = f(y)
-                    self.output_units[0] = y
-                    #print "y = ", y
-                    error = d[p][0] - y
-                    #print "f(y) = ", self.output_units[0]
+                      y[0] += x[i] * w[i]
+                    y[0] = f(y[0])
+                    error = d[p][0] - y[0]
 
-                    #print "error = ", error
                     for i in range(N+1): 
                       w[i] += h * error * x[i]
-
+                    
+                    # GUI stuff
                     self.Draw()
                     
+                    if N < 3:
+                      self.Graph()
+        plt.show()
+             
   def Run(self):
     x = self.input_units 
+    y = self.output_units
     w = self.weights
     h = self.learning_rate
+    y = self.output_units[0]
     d = self.targets
     N = len(self.patterns[0])
     P = len(self.patterns)
@@ -169,20 +203,14 @@ class Network(object):
           for p in range(P):
                   for i in range(N):
                     x[i] = self.patterns[p][i]
-                  #print "x = ", x[0:2]
-                  y = 0
+                  y[0] = 0
                   for i in range(N+1):
-                    y += x[i] * w[i]
-                  self.output_units[0] = f(y)
+                    y[0] += x[i] * w[i]
+                  y[0] = f(y[0])
 
-                  #print "y = ", y
-                  error = self.targets[p][0] - f(y)
-                  #print "f(y) = ", f(y)
-
-                  #print "error = ", error
+                  error = self.targets[p][0] - f(y[0])
 
                   self.Draw()
-
 
                   time.sleep(0.5)
 
@@ -190,10 +218,14 @@ class Network(object):
 Patterns = [
          #colour, shape, taste
          #red-yellow, big-small, sweet-sour
-         [0.1, 0.0, 0.2], #loquat 
-         [0.0, 0.2, 0.0], #lemon 
-         [1.0, 0.5, 0.8], #red apple 
-         [1.0, 0.0, 0.9], #strawberry 
+         #[0.1, 0.0, 0.2], #loquat 
+         #[0.0, 0.2, 0.0], #lemon 
+         #[1.0, 0.5, 0.8], #red apple 
+         #[1.0, 0.0, 0.9], #strawberry 
+         [0.1, 0.0], #loquat 
+         [0.0, 0.2], #lemon 
+         [1.0, 0.5], #red apple 
+         [1.0, 0.0], #strawberry 
         ]
 
 Targets = [

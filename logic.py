@@ -1,8 +1,8 @@
 from pyceptron import *
 
 #Patterns = [
-            #[0.0],
-            #[1.0],
+            #[0.0, 0.0],
+            #[1.0, 1.0],
            #]
 
 #Targets = [
@@ -12,22 +12,35 @@ from pyceptron import *
           #]
           
           
-Patterns = [
-            [0.0, 0.0],
-            [0.0, 1.0],
-            [1.0, 0.0],
-            [1.0, 1.0]
-           ]
+#Patterns = [
+            #[0.0, 0.0],
+            #[0.0, 1.0],
+            #[1.0, 0.0],
+            #[1.0, 1.0]
+           #]
 
-Targets = [
-           [0.0], #first target, corresponds to first pattern
-           [1.0],
-           [1.0],
-           [1.0],
+#Targets = [
+           #[0.0], #first target, corresponds to first pattern
+           #[1.0],
+           #[1.0],
+           #[1.0],
          
-          ]
+          #]
           
-          
+#Patterns = [
+            #[0.0, 0.0],
+            #[0.0, 1.0],
+            #[1.0, 0.0],
+            #[1.0, 1.0]
+           #]
+
+#Targets = [
+           #[0.0], #first target, corresponds to first pattern
+           #[1.0],
+           #[1.0],
+           #[0.0],
+         
+          #]          
 #Patterns = [
             #[0.0, 0.0],
             #[0.0, 1.0],
