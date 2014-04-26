@@ -98,7 +98,8 @@ class Network(object):
     if (len(self.patterns[0])) < 3:
       for i, sub_x in enumerate(self.patterns):
         self.graph_x.append(sub_x[0])
-        self.graph_y.append(sub_x[1])
+        if len(sub_x) == 2:
+          self.graph_y.append(sub_x[1])
     self.line = plt.plot(1, 1, 'k-')
  
   def Graph(self):
@@ -106,21 +107,34 @@ class Network(object):
       line_x = []
       line_y = [] 
       colour = {1: 'ro', 0: 'bs'}
-     
-      line_x = [2, -2]
-      line_y = numpy.zeros(2)
-      line_y[0] = (-self.weights[2] - self.weights[0] * line_x[0]) / self.weights[1]
-      line_y[1] = (-self.weights[2] - self.weights[0] * line_x[1]) / self.weights[1]
       plt.ion() 
-
-      for i, sub_x in enumerate(self.patterns):
+      
+      if len(self.patterns[0]) == 2:
+        line_x = [2, -2]
+        line_y = numpy.zeros(2)
+        line_y[0] = (-self.weights[2] - self.weights[0] * line_x[0]) / self.weights[1]
+        line_y[1] = (-self.weights[2] - self.weights[0] * line_x[1]) / self.weights[1]
+        
+        for i, sub_x in enumerate(self.patterns):
           plt.plot(sub_x[0], sub_x[1], colour[self.targets[i][0]])
-         
+          
+          
+      elif len(self.patterns[0]) == 1:
+        line_x = numpy.zeros(2)
+        line_y = [-2, 2]
+        line_x[0] = -self.weights[1] / self.weights[0]
+        line_x[1] = -self.weights[1] / self.weights[0]
+        #line_x[1] = (- self.weights[0] * line_x[1]) / self.weights[1]
+        
+        for i, sub_x in enumerate(self.patterns):
+          plt.plot(sub_x[0], 0, colour[self.targets[i][0]])
+                   
       plt.axis([-1, 2, -1, 2])
       self.line = plt.plot(line_x, line_y, 'k-')
       
       
       plt.draw()
+      
   def Draw(self):
     # GUI stuff
     

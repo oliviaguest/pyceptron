@@ -1,33 +1,20 @@
 from pyceptron import *
 
-#Patterns = [
-            #[0.0, 0.0],
-            #[1.0, 1.0],
-           #]
+''' This file contains the patterns used in the excersises for teaching the network logic '''
 
-#Targets = [
-           #[1.0], #first target, corresponds to first pattern
-           #[0.0],
-         
-          #]
-          
-          
-#Patterns = [
-            #[0.0, 0.0],
-            #[0.0, 1.0],
-            #[1.0, 0.0],
-            #[1.0, 1.0]
-           #]
+Patterns = [ ## NOT ##
+            [0.0],
+            [1.0],
+           ]
 
-#Targets = [
-           #[0.0], #first target, corresponds to first pattern
-           #[1.0],
-           #[1.0],
-           #[1.0],
+Targets = [
+           [1.0], #first target, corresponds to first pattern
+           [0.0],
          
-          #]
+          ]
           
-#Patterns = [
+          
+#Patterns = [ ## OR ##
             #[0.0, 0.0],
             #[0.0, 1.0],
             #[1.0, 0.0],
@@ -38,10 +25,12 @@ from pyceptron import *
            #[0.0], #first target, corresponds to first pattern
            #[1.0],
            #[1.0],
-           #[0.0],
+           #[1.0],
          
-          #]          
-#Patterns = [
+          #]
+          
+         
+#Patterns = [ ## AND ##
             #[0.0, 0.0],
             #[0.0, 1.0],
             #[1.0, 0.0],
@@ -55,6 +44,21 @@ from pyceptron import *
            #[1.0],
          
           #]  
+          
+#Patterns = [ ## XOR ##
+          #[0.0, 0.0],
+          #[0.0, 1.0],
+          #[1.0, 0.0],
+          #[1.0, 1.0]
+          #]
+
+#Targets = [
+           #[0.0], #first target, corresponds to first pattern
+           #[1.0],
+           #[1.0],
+           #[0.0],
+         
+          #] 
 
 N = Network(Patterns, Targets)
 
