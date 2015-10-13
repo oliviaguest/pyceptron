@@ -1,4 +1,1 @@
-pyceptron
-=========
-
-Pyceptron is a simple neural network with a simple GUI. 
+Pyceptron is a simple neural network with a simple graphical output. I used this code for a workshop I ran in 2014: [Introduction to Computational Cognitive Modelling](https://sites.google.com/site/introcompcog/). It is written with an emphasis on readibility and clarity for people who have never prgrammed before. Feel free tp use it for pedogical or other purposes; if you do [contact me](olivia@oliviaguest.com), I'd love to hear what you do with it. :)
